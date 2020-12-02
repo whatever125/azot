@@ -12,7 +12,7 @@ class Wmi:
 
     def connect(self) -> wmi.WMI:
         """Подключение к удаленному компьютеру"""
-        return wmi.WMI(computer=self.ip, privileges=["RemoteShutdown"])
+        return wmi.WMI()
 
     def free_space(self) -> float:
         """Вычисление свободного пространства на HDD"""
@@ -140,3 +140,12 @@ class Wmi:
             if types[i] == 11:
                 dic[values[i]] = self.register.GetQWORDValue(hdefkey, ssubkey, values[i])
         return dic
+
+
+# {'cpu_info': 'vc_info':'connect': 'time_info':
+# 'stop_service':  'group_info': 'group_users': 'connect_register': 'register_values':
+# 'register_get_values':'logical_disk_info' 'process_info': 'service_info':  'ram_info': 'net_info':
+# 'hdd_info': 'free_space':  'os_info':
+wmi = Wmi('')
+for i in wmi.ram_info():
+    print(i)
