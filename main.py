@@ -1,12 +1,13 @@
 import subprocess
+import datetime
 
 
 def get_ips() -> dict:
     """Возвращает имена компьютеров в AD их IP-адреса"""
-    res = list(filter(lambda x: x != 'Name' and x != ':' and x != 'IPv4Address', subprocess.run(
+    res = subprocess.run(
         ["powershell", "-Command",
-         'Get-ADComputer -Filter * -Properties Name, ipv4Address | Format-List Name, ipv4*'],
-        capture_output=True, shell=False).stdout.decode("CP866").split()))
+         'Get-ADComputer -Filter * -Properties Name, ipv4Address | Select-Object Name, ipv4*'],
+        capture_output=True, shell=False).stdout.decode("CP866").split()[4:]
     dic = {}
     for i in range(0, len(res), 2):
         dic[res[i]] = res[i + 1]
@@ -18,7 +19,7 @@ def list_ips() -> list:
     return subprocess.run(
         ["powershell", "-Command",
          'Get-ADComputer -Filter * -Property ipv4Address | Select-Object -ExpandProperty ipv4*'],
-        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')[:-1]
 
 
 def free_space() -> float:
@@ -26,7 +27,32 @@ def free_space() -> float:
     return sum(map(lambda space: float(space) / 1024 ** 3, subprocess.run(
         ["powershell", "-Command",
          'Get-WmiObject -Class Win32_LogicalDisk -filter "DriveType=3" | Select-Object -ExpandProperty FreeSpace'],
-        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')[:-1]))
+
+
+def ram_capacity() -> float:
+    """Вычисление объема оперативной памяти"""
+    return sum(map(lambda space: float(space) / 1024 ** 3, subprocess.run(
+        ["powershell", "-Command",
+         'Get-WmiObject -Class Win32_PhysicalMemory | Select-Object -ExpandProperty Capacity'],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')[:-1]))
+
+
+def processor_name() -> str:
+    """Возвращает название процессора"""
+    return subprocess.run(
+        ["powershell", "-Command",
+         'Get-WmiObject -Class Win32_Processor | Select-Object -ExpandProperty Name'],
+        capture_output=True, shell=False).stdout.decode("CP866")
+
+
+def last_boot_up_time() -> datetime.datetime:
+    """Возвращает время последенего включения"""
+    res = subprocess.run(
+        ["powershell", "-Command",
+         'Get-WmiObject Win32_OperatingSystem | Select-Object -ExpandProperty LastBootUpTime'],
+        capture_output=True, shell=False).stdout.decode("CP866")
+    return datetime.datetime(year=int(res[:4]), month=int(res[4:6]), day=int(res[6:8]), hour=int(res[8:10]), minute=int(res[10:12]), second=int(res[12:14]))
 
 
 def logical_disk_info() -> list:
@@ -73,7 +99,7 @@ def ram_info() -> list:
     """Возвращает информацию об оперативной памяти"""
     return subprocess.run(
         ["powershell", "-Command",
-         'Get -WmiObject -Class Win32_PhysicalMemory | Select-Object -Property *'],
+         'Get-WmiObject -Class Win32_PhysicalMemory | Select-Object -Property *'],
         capture_output=True).stdout.decode("CP866").split('\r\n')
 
 
@@ -162,23 +188,76 @@ def group_list() -> list:
     return subprocess.run(
         ["powershell", "-Command",
          'Get-WmiObject -Class Win32_Group | Select-Object -ExpandProperty Name'],
-        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')[:-1]
 
 
 def list_administrators():
     """Возвращает список администраторов"""
     return subprocess.run(
         ["powershell", "-Command",
-         """(Get-WmiObject -Class Win32_Group -Filter "Name='Администраторы'").GetRelated('Win32_UserAccount') | Select-Object -ExpandProperty Caption"""],
-        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
+         """(Get-WmiObject -Class Win32_Group -Filter "Name='Администраторы'").GetRelated('Win32_UserAccount') | Select-Object -ExpandProperty Name"""],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')[:-1]
 
 
 def list_remote_users():
     """Возвращает список удаленных пользователей"""
     return subprocess.run(
         ["powershell", "-Command",
-         """(Get-WmiObject -Class Win32_Group -Filter "Name='Пользователи удаленного управления'").GetRelated('Win32_UserAccount') | Select-Object -ExpandProperty Caption"""],
+         """(Get-WmiObject -Class Win32_Group -Filter "Name='Пользователи удаленного рабочего стола'").GetRelated('Win32_UserAccount') | Select-Object -ExpandProperty Name"""],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')[:-1]
+
+
+def list_users():
+    """Возвращает список пользователей AD"""
+    return subprocess.run(
+        ["powershell", "-Command",
+         'Get-AdUser -Filter * | Select-Object SamAccountName'],
         capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
 
 
+def list_user_information():
+    """Возвращает информацию о пользователях AD для таблицы"""
+    return subprocess.run(
+        ["powershell", "-Command",
+         'Get-AdUser -Filter * -Property * | Format-List SamAccountName, Name, PasswordLastSet, EmployeeID, SID'],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
+
+
+def disable_user(name):
+    subprocess.run(
+        ["powershell", "-Command",
+         f'Disable-ADAccount -Identity {name}'],
+        capture_output=True, shell=False)
+
+
+def enable_user(name):
+    subprocess.run(
+        ["powershell", "-Command",
+         f'Enable-ADAccount -Identity {name}'],
+        capture_output=True, shell=False)
+
+
+def remove_computer(name):
+    subprocess.run(
+        ["powershell", "-Command",
+         f'Remove-ADComputer -Identity {name}'],
+        capture_output=True, shell=False)
+
+
+def add_computer(domain_name):
+    subprocess.run(
+        ["powershell", "-Command",
+         f'Add-Computer -DomainName {domain_name} -Restart -Force'],
+        capture_output=True, shell=False)
+
+
+def user_info(name):
+    """Возвращает информацию о пользователе"""
+    return subprocess.run(
+        ["powershell", "-Command",
+         f'Get-AdUser -Identity {name} -Property *'],
+        capture_output=True).stdout.decode("CP866").split('\r\n')
+
+
 # Get-WmiObject Win32_OperatingSystem -ComputerName ((Get-ADComputer -filter * -SearchBase "OU=Member Servers,DC=Company,DC=Com").Name)
+print(list_users())
