@@ -198,6 +198,13 @@ def list_administrators(computer) -> list:
          f"""(Get-WmiObject -Class Win32_Group -Computer {computer} -Filter "Name='Администраторы'").GetRelated('Win32_UserAccount') | Select-Object -ExpandProperty Name"""],
         capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))
 
+def list_group_users(computer, group_name) -> list:
+    """Возвращает список администраторов"""
+    return list(filter(lambda x: x != '', subprocess.run(
+        ["powershell", "-Command",
+         f"""(Get-WmiObject -Class Win32_Group -Computer {computer} -Filter "Name='{group_name}'").GetRelated('Win32_UserAccount') | Select-Object -ExpandProperty Name"""],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))
+
 
 def list_remote_users(computer) -> list:
     """Возвращает список пользователей удаленного рабочего стола"""
@@ -261,3 +268,5 @@ def user_info(name: str) -> list:
         ["powershell", "-Command",
          f'Get-AdUser -Identity {name} -Property *'],
         capture_output=True).stdout.decode("CP866").split('\r\n')
+
+#print(hdd_info('localhost'))
