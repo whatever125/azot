@@ -2,16 +2,16 @@ import subprocess
 import datetime
 
 
-def get_ips() -> dict:
+def get_ips() -> list:
     """Возвращает имена компьютеров в AD их IP-адреса"""
     res = list(filter(lambda x: x != '', subprocess.run(
         ["powershell", "-Command",
          'Get-ADComputer -Filter * -Properties Name, ipv4Address | Select-Object Name, ipv4*'],
         capture_output=True, shell=False).stdout.decode("CP866").split()[4:]))
-    dic = {}
+    lis = []
     for i in range(0, len(res), 2):
-        dic[res[i]] = res[i + 1]
-    return dic
+        lis.append((res[i], res[i + 1]))
+    return lis
 
 
 def list_ips() -> list:
@@ -46,13 +46,15 @@ def processor_name(computer: str) -> list:
         capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))
 
 
-def last_boot_up_time(computer: str) -> datetime.datetime:
+def last_boot_up_time(computer: str) -> str:
     """Возвращает время последенего включения"""
     res = subprocess.run(
         ["powershell", "-Command",
-         f'Get-WmiObject Win32_OperatingSystem -Computer {computer} | Select-Object -ExpandProperty LastBootUpTime'],
+         f'(Get-WmiObject Win32_OperatingSystem -Computer {computer}).LastBootUpTime'],
         capture_output=True, shell=False).stdout.decode("CP866")
-    return datetime.datetime(year=int(res[:4]), month=int(res[4:6]), day=int(res[6:8]), hour=int(res[8:10]), minute=int(res[10:12]), second=int(res[12:14]))
+    boot_up_time = datetime.datetime(year=int(res[:4]), month=int(res[4:6]), day=int(res[6:8]), hour=int(res[8:10]), minute=int(res[10:12]), second=int(res[12:14]))
+    now_time = datetime.datetime.now()
+    return str(now_time - boot_up_time).split('.')[0]
 
 
 def logical_disk_info(computer: str) -> list:
@@ -127,10 +129,14 @@ def reboot(computer: str):
 
 def process_info(computer: str) -> list:
     """Возвращает информацию о запущенных процессах"""
-    return subprocess.run(
+    lis = list(map(lambda x: x.split(' : ')[1].strip(), filter(lambda x: x != '', subprocess.run(
         ["powershell", "-Command",
-         f'Get-WmiObject -Class Win32_Process -Computer {computer} | Select-Object -Property Name, ProcessID'],
-        capture_output=True).stdout.decode("CP866").split('\r\n')
+         f'Get-WmiObject -Class Win32_Process -Computer {computer} | Format-List -Property Name, ProcessID'],
+        capture_output=True).stdout.decode("CP866").split('\r\n'))))
+    out = []
+    for i in range(0, len(lis), 2):
+        out.append((lis[i], lis[i + 1]))
+    return out
 
 
 def terminate_process_by_id(process_id: int, computer: str):
@@ -149,10 +155,14 @@ def terminate_process_by_name(process_name: str, computer: str):
 
 def service_info(computer: str) -> list:
     """Возвращает информацию о службах"""
-    return subprocess.run(
+    lis = list(map(lambda x: x.split(' : ')[1].strip(), filter(lambda x: x != '', subprocess.run(
         ["powershell", "-Command",
-         f'Get-WmiObject -Class Win32_Service -Computer {computer} | Select-Object -Property Name, StartMode, DelayedAutoStart, Description, DisplayName, State'],
-        capture_output=True).stdout.decode("CP866").split('\r\n')
+         f'Get-WmiObject -Class Win32_Service -Computer {computer} | Format-List -Property Name, StartMode, DelayedAutoStart, State'],
+        capture_output=True).stdout.decode("CP866").split('\r\n'))))
+    out = []
+    for i in range(0, len(lis), 6):
+        out.append((lis[i], lis[i + 1]))
+    return out
 
 
 def start_service(service_name: str, computer: str):
@@ -191,6 +201,14 @@ def group_list(computer) -> list:
         capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))
 
 
+def list_group_users(computer: str, group_name: str) -> list:
+    """Возвращает список пользователей группы"""
+    return list(filter(lambda x: x != '', subprocess.run(
+        ["powershell", "-Command",
+         f"""(Get-WmiObject -Class Win32_Group -Computer {computer} -Filter "Name='{group_name}'").GetRelated('Win32_UserAccount') | Select-Object -ExpandProperty Name"""],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))
+
+
 def list_administrators(computer) -> list:
     """Возвращает список администраторов"""
     return list(filter(lambda x: x != '', subprocess.run(
@@ -217,10 +235,14 @@ def list_users() -> list:
 
 def list_user_information() -> list:
     """Возвращает информацию о пользователях AD для таблицы"""
-    return subprocess.run(
+    lis = list(map(lambda x: x.split(': ')[1].strip(), filter(lambda x: x != '', subprocess.run(
         ["powershell", "-Command",
-         'Get-AdUser -Filter * -Property * | Format-List SamAccountName, Name, PasswordLastSet, EmployeeID, SID'],
-        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
+         'Get-AdUser -Filter * -Property * | Format-List SamAccountName, Name, PasswordLastSet, EmployeeID, SID, Enabled'],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n'))))
+    out = []
+    for i in range(0, len(lis), 6):
+        out.append((lis[i], lis[i + 1], lis[i + 2], lis[i + 3], lis[i + 4], lis[i + 5]))
+    return out
 
 
 def disable_user(name: str):
@@ -260,4 +282,4 @@ def user_info(name: str) -> list:
     return subprocess.run(
         ["powershell", "-Command",
          f'Get-AdUser -Identity {name} -Property *'],
-        capture_output=True).stdout.decode("CP866").split('\r\n')
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')

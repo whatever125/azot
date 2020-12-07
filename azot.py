@@ -2,12 +2,16 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidget
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QScrollBar, QTreeWidgetItem
-from PyQt5.QtCore import QThread
+from PyQt5.QtCore import QThread, pyqtSignal, QObject
 import PyQt5.QtGui as QtGui
 import xlsxwriter
 import time
 import threading
 import main
+
+class Signal(QObject):
+    signal = pyqtSignal()
+    user_signal = pyqtSignal()
 
 
 class SAMThread(QThread):
@@ -20,6 +24,13 @@ class SAMThread(QThread):
             self.get_pc_info()
         elif type(self.widget) == UserInfWidget:
             self.get_user_info()
+        elif type(self.widget) == MyWidget:
+            if self.widget.clicked_button == 0:
+                self.request()
+            else:
+                self.load_users()
+        elif type(self.widget) == ManWidget:
+            self.pc_management()
 
     def get_pc_info(self):
         ip = self.widget.ip
@@ -95,12 +106,50 @@ class SAMThread(QThread):
         self.widget.textEdit.append('\n'.join(main.user_info(self.widget.name)))
         self.widget.error.setText('')
 
+    def request(self):
+        self.widget.error.setText('Загрузка информации о компьютерах...')
+        # ips = main.get_ips()
+        ips = [('АУЕ', 'localhost')]
+        pc_data = []
+        for i, j in enumerate(ips):
+            pc_data.append((j[0], j[1], ', '.join(main.list_administrators(j[1])),
+                            ', '.join(main.list_remote_users(j[1])), f'{round(main.free_space(j[1]), 2)} GB',
+                            f'{round(main.ram_capacity(j[1]), 2)} GB', ', '.join(main.processor_name(j[1])), main.last_boot_up_time(j[1])))
+        self.widget.s.signal.emit()
+        self.widget.pc_info = pc_data
+        self.widget.error.setText('')
+
+    def load_users(self):
+        self.widget.error.setText('Загрузка информации о пользователях...')
+        users_data = main.list_user_information()
+        self.widget.users_info = users_data
+        self.widget.s.user_signal.emit()
+        self.widget.error.setText('')
+
+    def pc_management(self):
+        self.widget.error.setText('Загрузка информации о процессах...')
+        self.widget.tabWidget.setEnabled(False)
+        process = main.process_info(self.widget.ip)
+        self.widget.tableWidget.setRowCount(len(process))
+        self.widget.tableWidget.clearContents()
+        self.widget.tableWidget.horizontalHeader().setSectionResizeMode(1)
+        for i, j in enumerate(process):
+            self.widget.tableWidget.setItem(i, 0, QTableWidgetItem(j[0]))
+            self.widget.tableWidget.setItem(i, 1, QTableWidgetItem(j[1]))
+        self.widget.tabWidget.setEnabled(True)
+        self.widget.error.setText('')
+
 
 class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.clicked_button = 0
+        self.s = Signal()
+        self.s.signal.connect(self.load_table)
+        self.s.user_signal.connect(self.load_user_table)
         uic.loadUi('azot.ui', self)
-
+        self.pc_info = []
+        self.users_info = []
         self.pushButton.clicked.connect(self.search)
         self.pushButton_2.clicked.connect(self.export)
         self.pushButton_3.clicked.connect(self.pc_information)
@@ -163,7 +212,7 @@ class MyWidget(QMainWindow):
         self.inf2 = UserInfWidget(self.tableWidget_2.selectedItems()[0].text(), self)
 
     def pc_management(self):
-        self.man = ManWidget()
+        self.man = ManWidget(self.tableWidget.selectedItems()[1].text(), self)
         self.man.show()
 
     def user_management(self):
@@ -179,33 +228,22 @@ class MyWidget(QMainWindow):
                 self.tableWidget.setItem(i, j, QTableWidgetItem(table3[i][j]))
 
     def request(self):
-        ips = main.get_ips()
-        # ips = [('NETBOOK-21', '192.168.137.48')]
-        users = main.list_user_information()
+        self.clicked_button = 0
+        self.thread = SAMThread(self)
+        self.thread.start()
 
-        self.tableWidget.setRowCount(len(ips))
-        self.tableWidget_2.setRowCount(len(users))
+    def load_table(self):
+        self.tableWidget.setRowCount(len(self.pc_info))
         self.tableWidget.clearContents()
-        self.tableWidget_2.clearContents()
-
-        for i, j in enumerate(ips):
+        for i, j in enumerate(self.pc_info):
             self.tableWidget.setItem(i, 0, QTableWidgetItem(j[0]))
             self.tableWidget.setItem(i, 1, QTableWidgetItem(j[1]))
-            self.tableWidget.setItem(i, 2, QTableWidgetItem(', '.join(main.list_administrators(j[1]))))
-            self.tableWidget.setItem(i, 3, QTableWidgetItem(', '.join(main.list_remote_users(j[1]))))
-            self.tableWidget.setItem(i, 4, QTableWidgetItem(f'{round(main.free_space(j[1]), 2)} GB'))
-            self.tableWidget.setItem(i, 5, QTableWidgetItem(f'{round(main.ram_capacity(j[1]), 2)} GB'))
-            self.tableWidget.setItem(i, 6, QTableWidgetItem(', '.join(main.processor_name(j[1]))))
-            self.tableWidget.setItem(i, 7, QTableWidgetItem(main.last_boot_up_time(j[1])))
-
-        for i, j in enumerate(users):
-            self.tableWidget_2.setItem(i, 0, QTableWidgetItem(j[0]))
-            self.tableWidget_2.setItem(i, 1, QTableWidgetItem(j[4]))
-            self.tableWidget_2.setItem(i, 2, QTableWidgetItem(j[1]))
-            self.tableWidget_2.setItem(i, 3, QTableWidgetItem(j[3]))
-            self.tableWidget_2.setItem(i, 4, QTableWidgetItem(j[2]))
-            self.tableWidget_2.setItem(i, 5, QTableWidgetItem(j[5]))
-
+            self.tableWidget.setItem(i, 2, QTableWidgetItem(j[2]))
+            self.tableWidget.setItem(i, 3, QTableWidgetItem(j[3]))
+            self.tableWidget.setItem(i, 4, QTableWidgetItem(j[4]))
+            self.tableWidget.setItem(i, 5, QTableWidgetItem(j[5]))
+            self.tableWidget.setItem(i, 6, QTableWidgetItem(j[6]))
+            self.tableWidget.setItem(i, 7, QTableWidgetItem(j[7]))
         self.table2 = []
         for i in range(self.tableWidget.rowCount()):
             self.table2.append(list())
@@ -214,6 +252,24 @@ class MyWidget(QMainWindow):
                     self.table2[-1].append(self.tableWidget.item(i, j).text())
                 else:
                     self.table2[-1].append('')
+
+    def load_user_table(self):
+        self.tableWidget_2.setRowCount(len(self.users_info))
+        self.tableWidget_2.clearContents()
+        for i, j in enumerate(self.users_info):
+            self.tableWidget_2.setItem(i, 0, QTableWidgetItem(j[0]))
+            self.tableWidget_2.setItem(i, 1, QTableWidgetItem(j[1]))
+            self.tableWidget_2.setItem(i, 2, QTableWidgetItem(j[2]))
+            self.tableWidget_2.setItem(i, 3, QTableWidgetItem(j[3]))
+            self.tableWidget_2.setItem(i, 4, QTableWidgetItem(j[4]))
+            self.tableWidget_2.setItem(i, 5, QTableWidgetItem(j[5]))
+            self.tableWidget_2.setItem(i, 6, QTableWidgetItem(j[6]))
+            self.tableWidget_2.setItem(i, 7, QTableWidgetItem(j[7]))
+
+    def load_users(self):
+        self.clicked_button = 1
+        self.thread = SAMThread(self)
+        self.thread.start()
 
 
 class InfWidget(QWidget):
@@ -252,10 +308,19 @@ class UserInfWidget(QWidget):
 
 
 class ManWidget(QWidget):
-    def __init__(self):
+    def __init__(self, ip, parent):
         super().__init__()
-
+        self.ip = ip
+        self.parent = parent
         uic.loadUi('management_pc.ui', self)
+        self.show()
+        self.thread = SAMThread(self)
+        self.thread.start()
+        self.pushButton_4.clicked.connect(self.terminate_process)
+
+    def terminate_process(self):
+        main.terminate_process_by_id(self.tableWidget.selectedItems()[1].text(), self.ip)
+        self.tableWidget.removeRow(self.tableWidget.selectedItems()[1].row())
 
 
 class UserManWidget(QWidget):
@@ -263,7 +328,6 @@ class UserManWidget(QWidget):
         super().__init__()
         self.parent = parent
         self.name = name
-
         uic.loadUi('management_user.ui', self)
         self.pushButton.clicked.connect(self.block_user)
         self.pushButton_2.clicked.connect(self.unblock_user)
