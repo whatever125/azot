@@ -31,6 +31,8 @@ class SAMThread(QThread):
                 self.load_users()
         elif type(self.widget) == ManWidget:
             self.pc_management()
+        elif type(self.widget) == UserManWidget:
+            self.user_management()
 
     def get_pc_info(self):
         ip = self.widget.ip
@@ -78,16 +80,16 @@ class SAMThread(QThread):
         self.widget.textEdit_6.clear()
         for line in net:
             self.widget.textEdit_6.append(line)
-        self.widget.error.setText('Загрузка информации о пользователях...')
 
-        groups = main.group_list(ip)
-        for i, group in enumerate(groups):
-            item = QTreeWidgetItem()
-            item.setText(0, group)
-            for j in main.list_group_users(ip, group):
-                child = QTreeWidgetItem(item)
-                child.setText(0, j)
-            self.widget.treeWidget.insertTopLevelItem(i, item)
+        # self.widget.error.setText('Загрузка информации о пользователях...')
+        # groups = main.group_list(ip)
+        # for i, group in enumerate(groups):
+        #     item = QTreeWidgetItem()
+        #     item.setText(0, group)
+        #     for j in main.list_group_users(ip, group):
+        #         child = QTreeWidgetItem(item)
+        #         child.setText(0, j)
+        #     self.widget.treeWidget.insertTopLevelItem(i, item)
 
         self.widget.textEdit.moveCursor(QtGui.QTextCursor.Start)
         self.widget.textEdit_2.moveCursor(QtGui.QTextCursor.Start)
@@ -103,18 +105,24 @@ class SAMThread(QThread):
     def get_user_info(self):
         self.widget.textEdit.clear()
         self.widget.error.setText('Загрузка информации о пользователе...')
-        self.widget.textEdit.append('\n'.join(main.user_info(self.widget.name)))
+        for line in main.user_info(self.widget.name):
+            self.widget.textEdit.append(line)
         self.widget.error.setText('')
 
     def request(self):
         self.widget.error.setText('Загрузка информации о компьютерах...')
         # ips = main.get_ips()
-        ips = [('АУЕ', 'localhost')]
+        ips = [('netbook-19', 'localhost'), ('netbook-4', '192.168.137.48'), ('netbook',  '192.168.137.123')]
         pc_data = []
         for i, j in enumerate(ips):
-            pc_data.append((j[0], j[1], ', '.join(main.list_administrators(j[1])),
-                            ', '.join(main.list_remote_users(j[1])), f'{round(main.free_space(j[1]), 2)} GB',
-                            f'{round(main.ram_capacity(j[1]), 2)} GB', ', '.join(main.processor_name(j[1])), main.last_boot_up_time(j[1])))
+            pc_data.append((j[0],
+                            j[1],
+                            ', ',
+                            ', ',
+                            f'{round(main.free_space(j[1]), 2)} GB',
+                            f'{round(main.ram_capacity(j[1]), 2)} GB',
+                            ', '.join(main.processor_name(j[1])),
+                            main.last_boot_up_time(j[1])))
         self.widget.s.signal.emit()
         self.widget.pc_info = pc_data
         self.widget.error.setText('')
@@ -136,8 +144,20 @@ class SAMThread(QThread):
         for i, j in enumerate(process):
             self.widget.tableWidget.setItem(i, 0, QTableWidgetItem(j[0]))
             self.widget.tableWidget.setItem(i, 1, QTableWidgetItem(j[1]))
+        self.widget.error.setText('Загрузка информации о службах...')
+        serv = main.service_info(self.widget.ip)
+        self.widget.tableWidget_2.setRowCount(len(serv))
+        self.widget.tableWidget_2.clearContents()
+        self.widget.tableWidget_2.horizontalHeader().setSectionResizeMode(1)
+        for i, j in enumerate(serv):
+            self.widget.tableWidget_2.setItem(i, 0, QTableWidgetItem(j[0]))
+            self.widget.tableWidget_2.setItem(i, 1, QTableWidgetItem(j[1]))
+            self.widget.tableWidget_2.setItem(i, 2, QTableWidgetItem(j[2]))
         self.widget.tabWidget.setEnabled(True)
         self.widget.error.setText('')
+
+    def user_management(self):
+        pass
 
 
 class MyWidget(QMainWindow):
@@ -156,13 +176,13 @@ class MyWidget(QMainWindow):
         self.pushButton_4.clicked.connect(self.pc_management)
         self.pushButton_5.clicked.connect(self.request)
         self.pushButton_8.clicked.connect(self.user_management)
-        self.pushButton_9.clicked.connect(self.request)
+        self.pushButton_9.clicked.connect(self.load_users)
         self.pushButton_10.clicked.connect(self.user_information)
 
         self.tableWidget.horizontalHeader().setSectionResizeMode(1)
         self.tableWidget_2.horizontalHeader().setSectionResizeMode(1)
 
-        self.start_thread()
+        # self.start_thread()
 
     def start_thread(self):
         self.thread = threading.Thread(target=self.threading_func, daemon=True)
@@ -233,6 +253,7 @@ class MyWidget(QMainWindow):
         self.thread.start()
 
     def load_table(self):
+        self.tableWidget.setSortingEnabled(False)
         self.tableWidget.setRowCount(len(self.pc_info))
         self.tableWidget.clearContents()
         for i, j in enumerate(self.pc_info):
@@ -244,6 +265,7 @@ class MyWidget(QMainWindow):
             self.tableWidget.setItem(i, 5, QTableWidgetItem(j[5]))
             self.tableWidget.setItem(i, 6, QTableWidgetItem(j[6]))
             self.tableWidget.setItem(i, 7, QTableWidgetItem(j[7]))
+        self.tableWidget.setSortingEnabled(True)
         self.table2 = []
         for i in range(self.tableWidget.rowCount()):
             self.table2.append(list())
@@ -254,6 +276,7 @@ class MyWidget(QMainWindow):
                     self.table2[-1].append('')
 
     def load_user_table(self):
+        self.tableWidget_2.setSortingEnabled(False)
         self.tableWidget_2.setRowCount(len(self.users_info))
         self.tableWidget_2.clearContents()
         for i, j in enumerate(self.users_info):
@@ -263,8 +286,7 @@ class MyWidget(QMainWindow):
             self.tableWidget_2.setItem(i, 3, QTableWidgetItem(j[3]))
             self.tableWidget_2.setItem(i, 4, QTableWidgetItem(j[4]))
             self.tableWidget_2.setItem(i, 5, QTableWidgetItem(j[5]))
-            self.tableWidget_2.setItem(i, 6, QTableWidgetItem(j[6]))
-            self.tableWidget_2.setItem(i, 7, QTableWidgetItem(j[7]))
+        self.tableWidget_2.setSortingEnabled(True)
 
     def load_users(self):
         self.clicked_button = 1
@@ -316,11 +338,69 @@ class ManWidget(QWidget):
         self.show()
         self.thread = SAMThread(self)
         self.thread.start()
-        self.pushButton_4.clicked.connect(self.terminate_process)
+        self.pushButton.clicked.connect(self.threading_run_register)
+        self.pushButton_2.clicked.connect(self.threading_shutdown)
+        self.pushButton_3.clicked.connect(self.threading_reboot)
+        self.pushButton_4.clicked.connect(self.threading_terminate_process)
+        self.pushButton_5.clicked.connect(self.threading_start_service)
+        self.pushButton_6.clicked.connect(self.threading_stop_service)
+
+    def threading_shutdown(self):
+        self.thread = threading.Thread(target=self.terminate_process)
+        self.thread.start()
+
+    def shutdown(self):
+        self.error.setText('Выключаю компьютер...')
+        main.shutdown(self.ip)
+        self.error.setText('Готово')
+
+    def threading_reboot(self):
+        self.thread = threading.Thread(target=self.terminate_process)
+        self.thread.start()
+
+    def reboot(self):
+        self.error.setText('Перезагружаю компьютер...')
+        main.reboot(self.ip)
+        self.error.setText('Готово')
+
+    def threading_terminate_process(self):
+        self.thread = threading.Thread(target=self.terminate_process)
+        self.thread.start()
 
     def terminate_process(self):
+        self.error.setText('Останавливаю процесс...')
         main.terminate_process_by_id(self.tableWidget.selectedItems()[1].text(), self.ip)
         self.tableWidget.removeRow(self.tableWidget.selectedItems()[1].row())
+        self.error.setText('Готово')
+
+    def threading_start_service(self):
+        self.thread = threading.Thread(target=self.stop_service)
+        self.thread.start()
+
+    def start_service(self):
+        self.error.setText('Запускаю службу...')
+        main.start_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
+        self.tableWidget_2.selectedItems()[2].setText('Running')
+        self.error.setText('Готово')
+
+    def threading_stop_service(self):
+        self.thread = threading.Thread(target=self.stop_service)
+        self.thread.start()
+
+    def stop_service(self):
+        self.error.setText('Останавливаю службу...')
+        main.stop_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
+        self.tableWidget_2.selectedItems()[2].setText('Stopped')
+        self.error.setText('Готово')
+
+    def threading_run_register(self):
+        self.thread = threading.Thread(target=self.run_register)
+        self.thread.start()
+
+    def run_register(self):
+        self.error.setText('Запускаю редактор реестра...')
+        main.run_register(self.ip)
+        self.error.setText('Готово')
 
 
 class UserManWidget(QWidget):
@@ -329,14 +409,26 @@ class UserManWidget(QWidget):
         self.parent = parent
         self.name = name
         uic.loadUi('management_user.ui', self)
-        self.pushButton.clicked.connect(self.block_user)
-        self.pushButton_2.clicked.connect(self.unblock_user)
+        self.pushButton.clicked.connect(self.start_block_user)
+        self.pushButton_2.clicked.connect(self.start_unblock_user)
+
+    def start_block_user(self):
+        self.thread = threading.Thread(target=self.block_user, daemon=True)
+        self.thread.start()
+
+    def start_unblock_user(self):
+        self.thread = threading.Thread(target=self.unblock_user, daemon=True)
+        self.thread.start()
 
     def block_user(self):
+        self.error.setText('Блокирую пользователя...')
         main.disable_user(self.name)
+        self.error.setText('Готово')
 
     def unblock_user(self):
+        self.error.setText('Разблокирую пользователя...')
         main.enable_user(self.name)
+        self.error.setText('Готово')
 
 
 if __name__ == '__main__':

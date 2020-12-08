@@ -1,5 +1,6 @@
 import subprocess
 import datetime
+import win32evtlog
 
 
 def get_ips() -> list:
@@ -157,11 +158,11 @@ def service_info(computer: str) -> list:
     """Возвращает информацию о службах"""
     lis = list(map(lambda x: x.split(' : ')[1].strip(), filter(lambda x: x != '', subprocess.run(
         ["powershell", "-Command",
-         f'Get-WmiObject -Class Win32_Service -Computer {computer} | Format-List -Property Name, StartMode, DelayedAutoStart, State'],
+         f'Get-WmiObject -Class Win32_Service -Computer {computer} | Format-List -Property Name, StartMode, State'],
         capture_output=True).stdout.decode("CP866").split('\r\n'))))
     out = []
-    for i in range(0, len(lis), 6):
-        out.append((lis[i], lis[i + 1]))
+    for i in range(0, len(lis), 3):
+        out.append((lis[i], lis[i + 1], lis[i + 2]))
     return out
 
 
@@ -190,7 +191,7 @@ def run_register(computer: str):
     """Подключается к системному реестру"""
     subprocess.run(
         ["powershell", "-Command",
-         f"""Invoke-WmiMethod -Class Win32_Process -Computer {computer} -Name create -ArgumentList 'regedit'"""])
+         f"""psexec -i -s \\\\{computer} regedit"""])
 
 
 def group_list(computer) -> list:
@@ -283,3 +284,22 @@ def user_info(name: str) -> list:
         ["powershell", "-Command",
          f'Get-AdUser -Identity {name} -Property *'],
         capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
+
+
+def who_blocked_user(name: str):
+    controllers = subprocess.run(
+            ["powershell", "-Command",
+             f'(Get-ADDomainController -filter *).HostName'],
+            capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')
+    return_events = []
+    for controller in controllers:
+        hand = win32evtlog.OpenEventLog(controller, 'Security')
+        flags = win32evtlog.EVENTLOG_BACKWARDS_READ | win32evtlog.EVENTLOG_SEQUENTIAL_READ
+        events = win32evtlog.ReadEventLog(hand, flags, 0)
+        return_events += [event for event in events if int(event.EventID) == 4725]
+    return return_events
+
+
+# hand = win32evtlog.OpenEventLog('192.168.137.29', 'Security')
+# flags = win32evtlog.EVENTLOG_BACKWARDS_READ | win32evtlog.EVENTLOG_SEQUENTIAL_READ
+# events = win32evtlog.ReadEventLog(hand, flags, 0)

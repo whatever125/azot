@@ -23,20 +23,10 @@
    <iconset>
     <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0,0,0,0,0">
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0">
    <property name="sizeConstraint">
     <enum>QLayout::SetDefaultConstraint</enum>
    </property>
-   <item row="9" column="1">
-    <widget class="QLineEdit" name="lineEdit_2"/>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="lineEdit">
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="8" column="1">
     <widget class="QLabel" name="label_2">
      <property name="sizePolicy">
@@ -50,16 +40,20 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QPushButton" name="pushButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QLineEdit" name="lineEdit_2"/>
+   </item>
+   <item row="6" column="1">
+    <widget class="QPushButton" name="pushButton_3">
      <property name="text">
-      <string>Заблокировать пользователя</string>
+      <string>Поиск</string>
      </property>
     </widget>
    </item>
@@ -70,15 +64,8 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="text">
-      <string>Поиск</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label">
+   <item row="0" column="1">
+    <widget class="QPushButton" name="pushButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -86,7 +73,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Найти машину с которой был заблокирован пользователь</string>
+      <string>Заблокировать пользователя</string>
      </property>
     </widget>
    </item>
@@ -107,6 +94,32 @@
     <widget class="QPushButton" name="pushButton_4">
      <property name="text">
       <string>Переместить</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Найти машину с которой был заблокирован пользователь</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="1">
+    <widget class="QLabel" name="error">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>10</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>

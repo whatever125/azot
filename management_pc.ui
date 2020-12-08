@@ -34,7 +34,7 @@
    <item row="6" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -52,9 +52,17 @@
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
          <column>
           <property name="text">
            <string>Название</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>ID</string>
           </property>
          </column>
         </widget>
@@ -105,14 +113,12 @@
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
          <column>
           <property name="text">
            <string>Имя</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Название</string>
           </property>
          </column>
          <column>
