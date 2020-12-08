@@ -51,21 +51,30 @@ class SAMThread(QThread):
     def load_pc_info(self):
         """Получает информацию о компьютерах для таблицы"""
         self.widget.error.setText('Загрузка информации о компьютерах...')
-        # ips = main.get_ips()
-        ips = [('netbook', 'localhost')]
-        pc_data = []
-        for i, j in enumerate(ips):
-            pc_data.append((j[0],
-                            j[1],
-                            ', '.join(main.list_administrators(j[1])),
-                            ', '.join(main.list_remote_users(j[1])),
-                            f'{round(main.free_space(j[1]), 2)} GB',
-                            f'{round(main.ram_capacity(j[1]), 2)} GB',
-                            ', '.join(main.processor_name(j[1])),
-                            main.last_boot_up_time(j[1])))
+        ips = main.get_ips()
+        if len(ips) == 0:
+            ips.append(('Этот компьютер', 'localhost'))
+        self.pc_data = []
+        threads = []
+        for i in ips:
+            thread = threading.Thread(target=self.threading_func, args=(i[0], i[1]))
+            threads.append(thread)
+            thread.start()
+        for thread in threads:
+            thread.join()
         self.widget.s.signal.emit()
-        self.widget.pc_info = pc_data
+        self.widget.pc_info = self.pc_data
         self.widget.error.setText('')
+
+    def threading_func(self, name, ip):
+        self.pc_data.append((name,
+                             ip,
+                             ', '.join(main.list_administrators(ip)),
+                             ', '.join(main.list_remote_users(ip)),
+                             f'{round(main.free_space(ip), 2)} GB',
+                             f'{round(main.ram_capacity(ip), 2)} GB',
+                             ', '.join(main.processor_name(ip)),
+                             main.last_boot_up_time(ip)))
 
     def load_users_info(self):
         """Получает информацию о пользователях для таблицы"""
@@ -189,6 +198,8 @@ class MyWidget(QMainWindow):
         self.clicked_button = 0
         self.pc_info = []
         self.users_info = []
+        self.table_users = []
+        self.table2 = []
 
         self.s = Signal()
         self.s.signal.connect(self.update_pc_info_table)
@@ -197,19 +208,21 @@ class MyWidget(QMainWindow):
         uic.loadUi('azot.ui', self)
         self.show()
 
-        self.pushButton.clicked.connect(self.search_pc_info)
+        self.lineEdit.textChanged.connect(self.search_pc_info)
         self.pushButton_2.clicked.connect(self.export_pc_info)
         self.pushButton_3.clicked.connect(self.show_pc_info_widget)
         self.pushButton_4.clicked.connect(self.show_pc_man_widget)
         self.pushButton_5.clicked.connect(self.load_pc_info)
+        self.pushButton_7.clicked.connect(self.export_users_info)
         self.pushButton_8.clicked.connect(self.show_user_man_widget)
         self.pushButton_9.clicked.connect(self.load_users_info)
         self.pushButton_10.clicked.connect(self.show_user_info_widget)
+        self.lineEdit_2.textChanged.connect(self.search_users_info)
 
         self.tableWidget.horizontalHeader().setSectionResizeMode(1)
         self.tableWidget_2.horizontalHeader().setSectionResizeMode(1)
 
-        # self.start_automatic_load_pc_info()
+        self.start_automatic_load_pc_info()
 
     def start_automatic_load_pc_info(self):
         """Запускает поток, автоматически опрашивающий компьютеры"""
@@ -224,7 +237,7 @@ class MyWidget(QMainWindow):
             for i in range(sleep):
                 time.sleep(1)
                 if self.spinBox.value() * 60 != sleep:
-                    continue
+                    break
 
     def show_pc_info_widget(self):
         """Открывает виджет с расширенной информацией о компьютере"""
@@ -299,15 +312,55 @@ class MyWidget(QMainWindow):
             self.tableWidget_2.setItem(i, 4, QTableWidgetItem(j[4]))
             self.tableWidget_2.setItem(i, 5, QTableWidgetItem(j[5]))
         self.tableWidget_2.setSortingEnabled(True)
+        self.table_users = []
+        for i in range(self.tableWidget_2.rowCount()):
+            self.table_users.append(list())
+            for j in range(self.tableWidget_2.columnCount()):
+                if self.tableWidget_2.item(i, j):
+                    self.table_users[-1].append(self.tableWidget_2.item(i, j).text())
+                else:
+                    self.table_users[-1].append('')
 
     def search_pc_info(self):
         """Осуществляет поиск по таблице с компьютерами"""
         self.tableWidget.clearContents()
-        table3 = list(filter(lambda x: self.lineEdit.text() in x[0], self.table2))
+        table3 = list(filter(lambda x: self.lineEdit.text().lower() in x[0].lower(), self.table2))
         self.tableWidget.setRowCount(len(table3))
         for i in range(len(table3)):
             for j in range(len(table3[i])):
                 self.tableWidget.setItem(i, j, QTableWidgetItem(table3[i][j]))
+
+    def search_users_info(self):
+        """Осуществляет поиск по таблице с пользователями"""
+        self.tableWidget_2.clearContents()
+        table3 = list(filter(lambda x: self.lineEdit_2.text() in x[0], self.table_users))
+        self.tableWidget_2.setRowCount(len(table3))
+        for i in range(len(table3)):
+            for j in range(len(table3[i])):
+                self.tableWidget_2.setItem(i, j, QTableWidgetItem(table3[i][j]))
+
+    def export_users_info(self):
+        """Экспортирует данные о пользователях в файл xlsx"""
+        fname = QFileDialog.getSaveFileName(self, 'Cохранить файл',
+                                            'users.xlsx', "Excel(*.xlsx)")[0]
+        if fname[-5:] != '.xlsx':
+            fname += '.xlsx'
+        export = []
+        for i in range(self.tableWidget_2.rowCount()):
+            export.append(list())
+            for j in range(self.tableWidget_2.columnCount()):
+                if self.tableWidget_2.item(i, j):
+                    export[-1].append(self.tableWidget_2.item(i, j).text())
+                else:
+                    export[-1].append('')
+        workbook = xlsxwriter.Workbook(fname)
+        worksheet = workbook.add_worksheet()
+        for i in range(self.tableWidget_2.columnCount()):
+            worksheet.write(0, i, self.tableWidget_2.horizontalHeaderItem(i).text())
+        for i in range(len(export)):
+            for j in range(len(export[i])):
+                worksheet.write(i + 1, j, export[i][j])
+        workbook.close()
 
     def export_pc_info(self):
         """Экспортирует данные о компьютерах в файл xlsx"""
@@ -386,6 +439,8 @@ class PCManWidget(QWidget):
         self.pushButton_4.clicked.connect(self.start_terminate_process)
         self.pushButton_5.clicked.connect(self.start_start_service)
         self.pushButton_6.clicked.connect(self.start_stop_service)
+        self.pushButton_7.clicked.connect(self.change_start_mode_service)
+        self.pushButton_8.clicked.connect(self.remove_computer)
 
     def start_shutdown(self):
         """Запускает процесс, который выключает компьютер"""
@@ -420,6 +475,8 @@ class PCManWidget(QWidget):
         main.terminate_process_by_id(self.tableWidget.selectedItems()[1].text(), self.ip)
         self.tableWidget.removeRow(self.tableWidget.selectedItems()[1].row())
         self.error.setText('Готово')
+        self.thread = SAMThread(self)
+        self.thread.start()
 
     def start_start_service(self):
         """Запускает процесс, который запускает службу"""
@@ -432,6 +489,8 @@ class PCManWidget(QWidget):
         main.start_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
         self.tableWidget_2.selectedItems()[2].setText('Running')
         self.error.setText('Готово')
+        self.thread = SAMThread(self)
+        self.thread.start()
 
     def start_stop_service(self):
         """Запускает процесс, который останавливает службу"""
@@ -444,6 +503,8 @@ class PCManWidget(QWidget):
         main.stop_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
         self.tableWidget_2.selectedItems()[2].setText('Stopped')
         self.error.setText('Готово')
+        self.thread = SAMThread(self)
+        self.thread.start()
 
     def start_run_register(self):
         """Запускает процесс, который запускает редактор реестра"""
@@ -456,6 +517,24 @@ class PCManWidget(QWidget):
         main.run_register(self.ip)
         self.error.setText('Готово')
 
+    def change_start_mode_service(self):
+        """Изменяет режим запуска службы"""
+        self.error.setText('Меняю режим запуска...')
+        mode = self.comboBox.currentText()
+        items = self.tableWidget_2.selectedItems()
+        if main.change_start_mode_service(items[0].text(), mode,  self.ip):
+            self.error.setText('Готово')
+            items[1].setText(mode)
+            self.thread = SAMThread(self)
+            self.thread.start()
+        else:
+            self.error.setText('Не удалось изменить режим запуска службы')
+
+    def remove_computer(self):
+        """Выводит компьютер из домена"""
+        self.error.setText('Вывожу компьютер из домена...')
+        main.remove_computer(self.ip)
+        self.error.setText('Готово')
 
 class UserManWidget(QWidget):
     """Виджет для управления пользователем"""

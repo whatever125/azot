@@ -180,11 +180,16 @@ def stop_service(service_name: str, computer: str):
          f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").StopService()"""])
 
 
-def change_start_mode_service(service_name: str, start_mode: str, computer: str):
+def change_start_mode_service(service_name: str, start_mode: str, computer: str) -> bool:
     """Изменяет режим запуска службы"""
+    #res = int(list(filter(lambda x: 'ReturnValue' in x, subprocess.run(
+    #    ["powershell", "-Command",
+    #     f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""],
+    #    capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))[0].split(' : ')[1].strip())
+    #return res == 0
     subprocess.run(
         ["powershell", "-Command",
-         f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode({start_mode})"""])
+         f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""])
 
 
 def run_register(computer: str):
@@ -238,7 +243,7 @@ def list_user_information() -> list:
     """Возвращает информацию о пользователях AD для таблицы"""
     lis = list(map(lambda x: x.split(': ')[1].strip(), filter(lambda x: x != '', subprocess.run(
         ["powershell", "-Command",
-         'Get-AdUser -Filter * -Property * | Format-List SamAccountName, Name, PasswordLastSet, EmployeeID, SID, Enabled'],
+         'Get-AdUser -Filter * -Property * | Format-List SamAccountName, SID, Name, EmployeeID, PasswordLastSet, Enabled'],
         capture_output=True, shell=False).stdout.decode("CP866").split('\r\n'))))
     out = []
     for i in range(0, len(lis), 6):
