@@ -147,13 +147,6 @@ def terminate_process_by_id(process_id: int, computer: str):
          f"""(Get-WmiObject -Class Win32_Process -filter "ProcessID={process_id}" -Computer {computer}).Terminate()"""])
 
 
-def terminate_process_by_name(process_name: str, computer: str):
-    """Останавливае процесс по имени"""
-    subprocess.run(
-        ["powershell", "-Command",
-         f"""(Get-WmiObject -Class Win32_Process -filter "Name='{process_name}'" -Computer {computer}).Terminate()"""])
-
-
 def service_info(computer: str) -> list:
     """Возвращает информацию о службах"""
     lis = list(map(lambda x: x.split(' : ')[1].strip(), filter(lambda x: x != '', subprocess.run(
@@ -182,14 +175,11 @@ def stop_service(service_name: str, computer: str):
 
 def change_start_mode_service(service_name: str, start_mode: str, computer: str) -> bool:
     """Изменяет режим запуска службы"""
-    #res = int(list(filter(lambda x: 'ReturnValue' in x, subprocess.run(
-    #    ["powershell", "-Command",
-    #     f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""],
-    #    capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))[0].split(' : ')[1].strip())
-    #return res == 0
-    subprocess.run(
+    res = int(list(filter(lambda x: 'ReturnValue' in x, subprocess.run(
         ["powershell", "-Command",
-         f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""])
+         f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""],
+        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))[0].split(' : ')[1].strip())
+    return res == 0
 
 
 def run_register(computer: str):
@@ -303,8 +293,3 @@ def who_blocked_user(name: str):
         events = win32evtlog.ReadEventLog(hand, flags, 0)
         return_events += [event for event in events if int(event.EventID) == 4725]
     return return_events
-
-
-# hand = win32evtlog.OpenEventLog('192.168.137.29', 'Security')
-# flags = win32evtlog.EVENTLOG_BACKWARDS_READ | win32evtlog.EVENTLOG_SEQUENTIAL_READ
-# events = win32evtlog.ReadEventLog(hand, flags, 0)
