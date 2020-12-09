@@ -118,14 +118,14 @@ def shutdown(computer: str):
     """Выключает компьютер"""
     subprocess.run(
         ["powershell", "-Command",
-         f'(Get-WmiObject -Class Win32_OperatingSystem -Computer {computer} -EnableAllPrivileges).Shutdown()'])
+         f'Start-Process powershell -Verb runAs -WindowStyle Hidden "(Get-WmiObject -Class Win32_OperatingSystem -Computer {computer} -EnableAllPrivileges).Shutdown()"'])
 
 
 def reboot(computer: str):
     """Перезагружает компьютер"""
     subprocess.run(
         ["powershell", "-Command",
-         f'(Get-WmiObject -Class Win32_OperatingSystem -Computer {computer} -EnableAllPrivileges).Reboot()'])
+         f'Start-Process powershell -Verb runAs -WindowStyle Hidden "(Get-WmiObject -Class Win32_OperatingSystem -Computer {computer} -EnableAllPrivileges).Reboot()"'])
 
 
 def process_info(computer: str) -> list:
@@ -145,6 +145,13 @@ def terminate_process_by_id(process_id: int, computer: str):
     subprocess.run(
         ["powershell", "-Command",
          f"""(Get-WmiObject -Class Win32_Process -filter "ProcessID={process_id}" -Computer {computer}).Terminate()"""])
+
+
+def terminate_process_by_name(process_name: str, computer: str):
+    """Останавливае процесс по имени"""
+    subprocess.run(
+        ["powershell", "-Command",
+         f"""(Get-WmiObject -Class Win32_Process -filter "Name='{process_name}'" -Computer {computer}).Terminate()"""])
 
 
 def service_info(computer: str) -> list:
@@ -175,11 +182,14 @@ def stop_service(service_name: str, computer: str):
 
 def change_start_mode_service(service_name: str, start_mode: str, computer: str) -> bool:
     """Изменяет режим запуска службы"""
-    res = int(list(filter(lambda x: 'ReturnValue' in x, subprocess.run(
+    #res = int(list(filter(lambda x: 'ReturnValue' in x, subprocess.run(
+    #    ["powershell", "-Command",
+    #     f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""],
+    #    capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))[0].split(' : ')[1].strip())
+    #return res == 0
+    subprocess.run(
         ["powershell", "-Command",
-         f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""],
-        capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))[0].split(' : ')[1].strip())
-    return res == 0
+         f"""(Get-WmiObject -Class Win32_Service -Computer {computer} -filter "Name='{service_name}'").ChangeStartMode('{start_mode}')"""])
 
 
 def run_register(computer: str):
@@ -261,7 +271,7 @@ def remove_computer(name: str):
     """Выводит ПК из домена"""
     subprocess.run(
         ["powershell", "-Command",
-         f'Remove-ADComputer -Identity {name}'],
+         f'Start-Process powershell -Verb runAs -WindowStyle Hidden "Remove-Computer -ComputerName {name} -Restart -Force"'],
         capture_output=True, shell=False)
 
 
@@ -269,7 +279,7 @@ def add_computer(domain_name: str):
     """Добавляет ПК в домен"""
     subprocess.run(
         ["powershell", "-Command",
-         f'Add-Computer -DomainName {domain_name} -Restart -Force'],
+         f'Start-Process powershell -Verb runAs -WindowStyle Hidden "Add-Computer -DomainName {domain_name} -Restart -Force"'],
         capture_output=True, shell=False)
 
 
@@ -293,3 +303,17 @@ def who_blocked_user(name: str):
         events = win32evtlog.ReadEventLog(hand, flags, 0)
         return_events += [event for event in events if int(event.EventID) == 4725]
     return return_events
+
+
+def in_domain() -> bool:
+    return bool(subprocess.run(
+            ["powershell", "-Command",
+             '(Get-WmiObject Win32_ComputerSystem).Domain'],
+            capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')[0])
+
+
+# print(filter(lambda x: 'Имя учетной записи' in x, subprocess.run(
+#             ["powershell", "-Command",
+#              """Get-WMIObject -Class Win32_NTLogEvent  -Computer 192.168.137.254 -filter "Logfile='Security' AND EventCode=4725" |select-object -property *"""],
+#             capture_output=True, shell=False).stdout.decode("CP866").split('\r\n')))
+remove_computer('192.168.136.187')

@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAM (System Administrator Mate) &#8212; документация SAM </title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Содержание модулей Python"
+             >модули</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">документация SAM </a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SAM (System Administrator Mate)</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sam-system-administrator-mate">
+<h1>SAM (System Administrator Mate)<a class="headerlink" href="#sam-system-administrator-mate" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="module-azot">
+<span id="azot-py"></span><h2>Модуль интерфейса azot.py<a class="headerlink" href="#module-azot" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="azot.MyWidget">
+<em class="property">class </em><code class="sig-prename descclassname">azot.</code><code class="sig-name descname">MyWidget</code><a class="headerlink" href="#azot.MyWidget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Главное окно программы</p>
+<dl class="py method">
+<dt id="azot.MyWidget.automatic_load_pc_info">
+<code class="sig-name descname">automatic_load_pc_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.automatic_load_pc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Автоматически опрашивает компьютеры, получает информацию для таблицы</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.export_pc_info">
+<code class="sig-name descname">export_pc_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.export_pc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Экспортирует данные о компьютерах в файл xlsx</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.export_users_info">
+<code class="sig-name descname">export_users_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.export_users_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Экспортирует данные о пользователях в файл xlsx</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.load_pc_info">
+<code class="sig-name descname">load_pc_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.load_pc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который опрашивает компьютеры, получает информацию для таблицы</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.load_users_info">
+<code class="sig-name descname">load_users_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.load_users_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который опрашивает пользователей, получает информацию для таблицы</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.search_pc_info">
+<code class="sig-name descname">search_pc_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.search_pc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Осуществляет поиск по таблице с компьютерами</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.search_users_info">
+<code class="sig-name descname">search_users_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.search_users_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Осуществляет поиск по таблице с пользователями</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.show_pc_info_widget">
+<code class="sig-name descname">show_pc_info_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.show_pc_info_widget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Открывает виджет с расширенной информацией о компьютере</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.show_pc_man_widget">
+<code class="sig-name descname">show_pc_man_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.show_pc_man_widget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Открывает виджет для управления компьютером</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.show_user_info_widget">
+<code class="sig-name descname">show_user_info_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.show_user_info_widget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Открывает виджет с расширенной информацией о пользователе</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.show_user_man_widget">
+<code class="sig-name descname">show_user_man_widget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.show_user_man_widget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Открывает виджет для управления пользователем</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.start_automatic_load_pc_info">
+<code class="sig-name descname">start_automatic_load_pc_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.start_automatic_load_pc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает поток, автоматически опрашивающий компьютеры</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.update_pc_info_table">
+<code class="sig-name descname">update_pc_info_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.update_pc_info_table" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Загружает информацию о компьютерах в таблицу</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.MyWidget.update_user_info_table">
+<code class="sig-name descname">update_user_info_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.MyWidget.update_user_info_table" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Загружает информацию о пользователях в таблицу</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="azot.PCInfWidget">
+<em class="property">class </em><code class="sig-prename descclassname">azot.</code><code class="sig-name descname">PCInfWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCInfWidget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Виджет с расширенной информацией о компьютере</p>
+<dl class="py method">
+<dt id="azot.PCInfWidget.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QCloseEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCInfWidget.closeEvent" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="azot.PCManWidget">
+<em class="property">class </em><code class="sig-prename descclassname">azot.</code><code class="sig-name descname">PCManWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ip</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Виджет для управления компьютером</p>
+<dl class="py method">
+<dt id="azot.PCManWidget.change_start_mode_service">
+<code class="sig-name descname">change_start_mode_service</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.change_start_mode_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Изменяет режим запуска службы</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QCloseEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.closeEvent" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.reboot">
+<code class="sig-name descname">reboot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.reboot" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Перезагружает компьютер</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.remove_computer">
+<code class="sig-name descname">remove_computer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.remove_computer" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Выводит компьютер из домена</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.run_register">
+<code class="sig-name descname">run_register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.run_register" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает редактор реестра</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.shutdown" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Выключает компьютер</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.start_reboot">
+<code class="sig-name descname">start_reboot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.start_reboot" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который перезагружает компьютер</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.start_run_register">
+<code class="sig-name descname">start_run_register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.start_run_register" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который запускает редактор реестра</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.start_service">
+<code class="sig-name descname">start_service</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.start_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает службу</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.start_shutdown">
+<code class="sig-name descname">start_shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.start_shutdown" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который выключает компьютер</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.start_start_service">
+<code class="sig-name descname">start_start_service</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.start_start_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который запускает службу</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.start_stop_service">
+<code class="sig-name descname">start_stop_service</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.start_stop_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который останавливает службу</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.start_terminate_process">
+<code class="sig-name descname">start_terminate_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.start_terminate_process" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который останавливает процесс</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.stop_service">
+<code class="sig-name descname">stop_service</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.stop_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Останавливает службу</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.PCManWidget.terminate_process">
+<code class="sig-name descname">terminate_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.PCManWidget.terminate_process" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Останавливает процесс</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="azot.SAMThread">
+<em class="property">class </em><code class="sig-prename descclassname">azot.</code><code class="sig-name descname">SAMThread</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">widget</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.SAMThread" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Класс Qt-треда</p>
+<dl class="py method">
+<dt id="azot.SAMThread.get_pc_info">
+<code class="sig-name descname">get_pc_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.SAMThread.get_pc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получает расширенную информацию о компьютере</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.SAMThread.get_user_info">
+<code class="sig-name descname">get_user_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.SAMThread.get_user_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получает расширенную информацию о пользователе</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.SAMThread.load_pc_info">
+<code class="sig-name descname">load_pc_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.SAMThread.load_pc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получает информацию о компьютерах для таблицы</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.SAMThread.load_pc_man_info">
+<code class="sig-name descname">load_pc_man_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.SAMThread.load_pc_man_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получает информацию о процессах и службах</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.SAMThread.load_users_info">
+<code class="sig-name descname">load_users_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.SAMThread.load_users_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получает информацию о пользователях для таблицы</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.SAMThread.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.SAMThread.run" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запуск треда</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="azot.Signal">
+<em class="property">class </em><code class="sig-prename descclassname">azot.</code><code class="sig-name descname">Signal</code><a class="headerlink" href="#azot.Signal" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="azot.UserInfWidget">
+<em class="property">class </em><code class="sig-prename descclassname">azot.</code><code class="sig-name descname">UserInfWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserInfWidget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Виджета с расширенной информацией о пользователе</p>
+<dl class="py method">
+<dt id="azot.UserInfWidget.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QCloseEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserInfWidget.closeEvent" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="azot.UserManWidget">
+<em class="property">class </em><code class="sig-prename descclassname">azot.</code><code class="sig-name descname">UserManWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserManWidget" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Виджет для управления пользователем</p>
+<dl class="py method">
+<dt id="azot.UserManWidget.block_user">
+<code class="sig-name descname">block_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserManWidget.block_user" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Блокирует пользователя</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.UserManWidget.closeEvent">
+<code class="sig-name descname">closeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QCloseEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserManWidget.closeEvent" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="azot.UserManWidget.start_block_user">
+<code class="sig-name descname">start_block_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserManWidget.start_block_user" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который блокирует пользователя</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.UserManWidget.start_unblock_user">
+<code class="sig-name descname">start_unblock_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserManWidget.start_unblock_user" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает процесс, который разблокирует пользователя</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="azot.UserManWidget.unblock_user">
+<code class="sig-name descname">unblock_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azot.UserManWidget.unblock_user" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Разблокирует пользователя</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="azot.format_info">
+<code class="sig-prename descclassname">azot.</code><code class="sig-name descname">format_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#azot.format_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Форматирует информацию для вывода в TextEdit</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-main">
+<span id="main-py"></span><h2>Модуль управления main.py<a class="headerlink" href="#module-main" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py function">
+<dt id="main.add_computer">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">add_computer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">domain_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.add_computer" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Добавляет ПК в домен</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.change_start_mode_service">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">change_start_mode_service</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">service_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">start_mode</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#main.change_start_mode_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Изменяет режим запуска службы</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.cpu_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">cpu_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.cpu_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о процессорах</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.disable_user">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">disable_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.disable_user" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Блокирует AD аккаунт пользователя</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.enable_user">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">enable_user</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.enable_user" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Разблокирeет AD аккаунт пользователя</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.free_space">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">free_space</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#main.free_space" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Вычисление свободного пространства на HDD</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.get_ips">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">get_ips</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.get_ips" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает имена компьютеров в AD их IP-адреса</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.group_list">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">group_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.group_list" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает список групп</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.hdd_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">hdd_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.hdd_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о жестких дисках</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.last_boot_up_time">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">last_boot_up_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#main.last_boot_up_time" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает время последенего включения</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.list_administrators">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">list_administrators</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.list_administrators" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает список администраторов</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.list_group_users">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">list_group_users</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">group_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.list_group_users" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает список пользователей группы</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.list_ips">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">list_ips</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.list_ips" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает список IP-адресов компьютеров в AD</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.list_remote_users">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">list_remote_users</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.list_remote_users" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает список пользователей удаленного рабочего стола</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.list_user_information">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">list_user_information</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.list_user_information" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о пользователях AD для таблицы</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.list_users">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">list_users</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.list_users" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает список пользователей AD</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.logical_disk_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">logical_disk_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.logical_disk_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о логических дисках</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.net_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">net_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.net_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о сетевых адаптерах</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.os_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">os_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.os_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию об операционных системах</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.process_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">process_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.process_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о запущенных процессах</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.processor_name">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">processor_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.processor_name" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает название процессора</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.ram_capacity">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">ram_capacity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#main.ram_capacity" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Вычисление объема оперативной памяти</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.ram_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">ram_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.ram_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию об оперативной памяти</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.reboot">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">reboot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.reboot" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Перезагружает компьютер</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.remove_computer">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">remove_computer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.remove_computer" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Выводит ПК из домена</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.run_register">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">run_register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.run_register" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Подключается к системному реестру</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.service_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">service_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.service_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о службах</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.shutdown">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.shutdown" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Выключает компьютер</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.start_service">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">start_service</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">service_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.start_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает службу</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.stop_service">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">stop_service</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">service_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.stop_service" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Останавливает службу</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.terminate_process_by_id">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">terminate_process_by_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.terminate_process_by_id" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Останавливает процесс по id</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.terminate_process_by_name">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">terminate_process_by_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.terminate_process_by_name" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Останавливае процесс по имени</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.user_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">user_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.user_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о пользователе</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="main.vc_info">
+<code class="sig-prename descclassname">main.</code><code class="sig-name descname">vc_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">computer</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#main.vc_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Возвращает информацию о видеокартах</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="id1">
+<h1>Таблицы и индексы<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Алфавитный указатель</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Состав модуля</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Поиск</span></a></p></li>
+</ul>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SAM (System Administrator Mate)</a><ul>
+<li><a class="reference internal" href="#module-azot">Модуль интерфейса azot.py</a></li>
+<li><a class="reference internal" href="#module-main">Модуль управления main.py</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Таблицы и индексы</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Содержание модулей Python"
+             >модули</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">документация SAM </a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SAM (System Administrator Mate)</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Колмаков Дмитрий, Макаров Андрей.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.3.1.
+    </div>
+  </body>
+</html>

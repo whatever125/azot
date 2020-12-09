@@ -2,7 +2,7 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidget
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QScrollBar, QTreeWidgetItem
-from PyQt5.QtCore import QThread, pyqtSignal, QObject
+from PyQt5.QtCore import QThread, pyqtSignal, QObject, Qt
 import PyQt5.QtGui as QtGui
 import xlsxwriter
 import time
@@ -51,15 +51,20 @@ class SAMThread(QThread):
     def load_pc_info(self):
         """Получает информацию о компьютерах для таблицы"""
         self.widget.error.setText('Загрузка информации о компьютерах...')
-        ips = main.get_ips()
-        if len(ips) == 0:
-            ips.append(('Этот компьютер', 'localhost'))
+        ips = [('Этот компьютер', 'localhost'), ('netbook', '192.168.136.187')]
+        # if not main.in_domain():
+        #     ips = [('Этот компьютер', 'localhost')]
+        # else:
+        #     ips = main.get_ips()
         self.pc_data = []
         threads = []
         for i in ips:
-            thread = threading.Thread(target=self.threading_func, args=(i[0], i[1]))
-            threads.append(thread)
-            thread.start()
+            try:
+                thread = threading.Thread(target=self.threading_func, args=(i[0], i[1]))
+                threads.append(thread)
+                thread.start()
+            except Exception as E:
+                self.widget.error.setText(E)
         for thread in threads:
             thread.join()
         self.widget.s.signal.emit()
@@ -69,8 +74,8 @@ class SAMThread(QThread):
     def threading_func(self, name, ip):
         self.pc_data.append((name,
                              ip,
-                             ', '.join(main.list_administrators(ip)),
-                             ', '.join(main.list_remote_users(ip)),
+                             ', ',
+                             ', ',
                              f'{round(main.free_space(ip), 2)} GB',
                              f'{round(main.ram_capacity(ip), 2)} GB',
                              ', '.join(main.processor_name(ip)),
@@ -89,101 +94,150 @@ class SAMThread(QThread):
         ip = self.widget.ip
         self.widget.tabWidget.setEnabled(False)
 
-        self.widget.error.setText('Загрузка информации о дисках...')
-        hdd = format_info(main.hdd_info(ip))
-        self.widget.textEdit.clear()
-        for i in hdd:
-            self.widget.textEdit.append(i)
+        try:
+            self.widget.error.setText('Загрузка информации о дисках...')
+            hdd = format_info(main.hdd_info(ip))
+            self.widget.textEdit.clear()
+            for i in hdd:
+                self.widget.textEdit.append(i)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.error.setText('Загрузка информации о разделах...')
-        disks = format_info(main.logical_disk_info(ip))
-        self.widget.textEdit_7.clear()
-        for i in disks:
-            self.widget.textEdit_7.append(i)
-        self.widget.textEdit_7.moveCursor(QtGui.QTextCursor.Start)
+        try:
+            self.widget.error.setText('Загрузка информации о разделах...')
+            disks = format_info(main.logical_disk_info(ip))
+            self.widget.textEdit_7.clear()
+            for i in disks:
+                self.widget.textEdit_7.append(i)
+            self.widget.textEdit_7.moveCursor(QtGui.QTextCursor.Start)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.error.setText('Загрузка информации об операционной системе...')
-        os = format_info(main.os_info(ip))
-        self.widget.textEdit_2.clear()
-        for i in os:
-            self.widget.textEdit_2.append(i)
+        try:
+            self.widget.error.setText('Загрузка информации об операционной системе...')
+            os = format_info(main.os_info(ip))
+            self.widget.textEdit_2.clear()
+            for i in os:
+                self.widget.textEdit_2.append(i)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.error.setText('Загрузка информации о процессорах...')
-        cpu = format_info(main.cpu_info(ip))
-        self.widget.textEdit_3.clear()
-        for i in cpu:
-            self.widget.textEdit_3.append(i)
+        try:
+            self.widget.error.setText('Загрузка информации о процессорах...')
+            cpu = format_info(main.cpu_info(ip))
+            self.widget.textEdit_3.clear()
+            for i in cpu:
+                self.widget.textEdit_3.append(i)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.error.setText('Загрузка информации об оперативной памяти...')
-        ram = format_info(main.ram_info(ip))
-        self.widget.textEdit_5.clear()
-        for i in ram:
-            self.widget.textEdit_5.append(i)
+        try:
+            self.widget.error.setText('Загрузка информации об оперативной памяти...')
+            ram = format_info(main.ram_info(ip))
+            self.widget.textEdit_5.clear()
+            for i in ram:
+                self.widget.textEdit_5.append(i)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.error.setText('Загрузка информации о видеокартах...')
-        vc = format_info(main.vc_info(ip))
-        self.widget.textEdit_4.clear()
-        for i in vc:
-            self.widget.textEdit_4.append(i)
+        try:
+            self.widget.error.setText('Загрузка информации о видеокартах...')
+            vc = format_info(main.vc_info(ip))
+            self.widget.textEdit_4.clear()
+            for i in vc:
+                self.widget.textEdit_4.append(i)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.error.setText('Загрузка информации о сетевых адаптерах...')
-        net = format_info(main.net_info(ip))
-        self.widget.textEdit_6.clear()
-        for line in net:
-            self.widget.textEdit_6.append(line)
+        try:
+            self.widget.error.setText('Загрузка информации о сетевых адаптерах...')
+            net = format_info(main.net_info(ip))
+            self.widget.textEdit_6.clear()
+            for line in net:
+                self.widget.textEdit_6.append(line)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.error.setText('Загрузка информации о пользователях...')
-        groups = main.group_list(ip)
-        for i, group in enumerate(groups):
-            item = QTreeWidgetItem()
-            item.setText(0, group)
-            for j in main.list_group_users(ip, group):
-                child = QTreeWidgetItem(item)
-                child.setText(0, j)
-            self.widget.treeWidget.insertTopLevelItem(i, item)
+        try:
+            self.widget.error.setText('Загрузка информации о пользователях...')
+            groups = main.group_list(ip)
+            for i, group in enumerate(groups):
+                item = QTreeWidgetItem()
+                item.setText(0, group)
+                for j in main.list_group_users(ip, group):
+                    child = QTreeWidgetItem(item)
+                    child.setText(0, j)
+                self.widget.treeWidget.insertTopLevelItem(i, item)
+        except Exception as E:
+            self.widget.error.setText(E)
 
-        self.widget.textEdit.moveCursor(QtGui.QTextCursor.Start)
-        self.widget.textEdit_2.moveCursor(QtGui.QTextCursor.Start)
-        self.widget.textEdit_3.moveCursor(QtGui.QTextCursor.Start)
-        self.widget.textEdit_4.moveCursor(QtGui.QTextCursor.Start)
-        self.widget.textEdit_5.moveCursor(QtGui.QTextCursor.Start)
-        self.widget.textEdit_6.moveCursor(QtGui.QTextCursor.Start)
-        self.widget.textEdit_7.moveCursor(QtGui.QTextCursor.Start)
+        try:
+            self.widget.textEdit.moveCursor(QtGui.QTextCursor.Start)
+            self.widget.textEdit_2.moveCursor(QtGui.QTextCursor.Start)
+            self.widget.textEdit_3.moveCursor(QtGui.QTextCursor.Start)
+            self.widget.textEdit_4.moveCursor(QtGui.QTextCursor.Start)
+            self.widget.textEdit_5.moveCursor(QtGui.QTextCursor.Start)
+            self.widget.textEdit_6.moveCursor(QtGui.QTextCursor.Start)
+            self.widget.textEdit_7.moveCursor(QtGui.QTextCursor.Start)
+        except Exception as E:
+            self.widget.error.setText(E)
 
         self.widget.error.setText('')
         self.widget.tabWidget.setEnabled(True)
 
     def get_user_info(self):
         """Получает расширенную информацию о пользователе"""
-        self.widget.textEdit.clear()
-        self.widget.error.setText('Загрузка информации о пользователе...')
-        for line in main.user_info(self.widget.name):
-            self.widget.textEdit.append(line)
-        self.widget.error.setText('')
+        try:
+            self.widget.textEdit.clear()
+            self.widget.error.setText('Загрузка информации о пользователе...')
+            self.user_info = []
+            thread = threading.Thread(target=self.threading_user_info)
+            thread.start()
+            thread.join()
+            for line in self.user_info:
+                self.widget.textEdit.append(line)
+            self.widget.error.setText('')
+        except Exception as E:
+            self.widget.error.setText(E)
+
+    def threading_user_info(self):
+        self.user_info = main.user_info(self.widget.name)
 
     def load_pc_man_info(self):
         """Получает информацию о процессах и службах"""
         self.widget.error.setText('Загрузка информации о процессах...')
         self.widget.tabWidget.setEnabled(False)
-        process = main.process_info(self.widget.ip)
-        self.widget.tableWidget.setRowCount(len(process))
-        self.widget.tableWidget.clearContents()
-        self.widget.tableWidget.horizontalHeader().setSectionResizeMode(1)
-        for i, j in enumerate(process):
-            self.widget.tableWidget.setItem(i, 0, QTableWidgetItem(j[0]))
-            self.widget.tableWidget.setItem(i, 1, QTableWidgetItem(j[1]))
+        try:
+            self.widget.tableWidget.setSortingEnabled(False)
+            process = main.process_info(self.widget.ip)
+            self.widget.tableWidget.setRowCount(len(process))
+            self.widget.tableWidget.clearContents()
+            self.widget.tableWidget.horizontalHeader().setSectionResizeMode(1)
+            for i, j in enumerate(process):
+                self.widget.tableWidget.setItem(i, 0, QTableWidgetItem(j[0]))
+                self.widget.tableWidget.setItem(i, 1, QTableWidgetItem(j[1]))
+        except Exception as E:
+            self.widget.error.setText(E)
+        finally:
+            self.widget.tableWidget.setSortingEnabled(True)
 
-        self.widget.error.setText('Загрузка информации о службах...')
-        serv = main.service_info(self.widget.ip)
-        self.widget.tableWidget_2.setRowCount(len(serv))
-        self.widget.tableWidget_2.clearContents()
-        self.widget.tableWidget_2.horizontalHeader().setSectionResizeMode(1)
-        for i, j in enumerate(serv):
-            self.widget.tableWidget_2.setItem(i, 0, QTableWidgetItem(j[0]))
-            self.widget.tableWidget_2.setItem(i, 1, QTableWidgetItem(j[1]))
-            self.widget.tableWidget_2.setItem(i, 2, QTableWidgetItem(j[2]))
-        self.widget.tabWidget.setEnabled(True)
-        self.widget.error.setText('')
+        try:
+            self.widget.tableWidget_2.setSortingEnabled(False)
+            self.widget.error.setText('Загрузка информации о службах...')
+            serv = main.service_info(self.widget.ip)
+            self.widget.tableWidget_2.setRowCount(len(serv))
+            self.widget.tableWidget_2.clearContents()
+            self.widget.tableWidget_2.horizontalHeader().setSectionResizeMode(1)
+            for i, j in enumerate(serv):
+                self.widget.tableWidget_2.setItem(i, 0, QTableWidgetItem(j[0]))
+                self.widget.tableWidget_2.setItem(i, 1, QTableWidgetItem(j[1]))
+                self.widget.tableWidget_2.setItem(i, 2, QTableWidgetItem(j[2]))
+            self.widget.error.setText('')
+        except Exception as E:
+            self.widget.error.setText(E)
+        finally:
+            self.widget.tableWidget_2.setSortingEnabled(True)
+            self.widget.tabWidget.setEnabled(True)
 
     def load_user_man_info(self):
         pass
@@ -209,6 +263,7 @@ class MyWidget(QMainWindow):
         self.show()
 
         self.lineEdit.textChanged.connect(self.search_pc_info)
+        self.lineEdit_2.textChanged.connect(self.search_users_info)
         self.pushButton_2.clicked.connect(self.export_pc_info)
         self.pushButton_3.clicked.connect(self.show_pc_info_widget)
         self.pushButton_4.clicked.connect(self.show_pc_man_widget)
@@ -217,10 +272,14 @@ class MyWidget(QMainWindow):
         self.pushButton_8.clicked.connect(self.show_user_man_widget)
         self.pushButton_9.clicked.connect(self.load_users_info)
         self.pushButton_10.clicked.connect(self.show_user_info_widget)
-        self.lineEdit_2.textChanged.connect(self.search_users_info)
+        self.spinBox.setMinimum(1)
+
+        if not main.in_domain():
+            self.tab_2.setEnabled(False)
 
         self.tableWidget.horizontalHeader().setSectionResizeMode(1)
         self.tableWidget_2.horizontalHeader().setSectionResizeMode(1)
+
 
         self.start_automatic_load_pc_info()
 
@@ -251,17 +310,32 @@ class MyWidget(QMainWindow):
 
     def show_user_info_widget(self):
         """Открывает виджет с расширенной информацией о пользователе"""
-        self.inf2 = UserInfWidget(self.tableWidget_2.selectedItems()[0].text(), self)
+        try:
+            self.setEnabled(False)
+            self.inf2 = UserInfWidget(self.tableWidget_2.selectedItems()[0].text(), self)
+        except IndexError:
+            self.setEnabled(True)
+            self.error.setText('Выберите пользователя')
 
     def show_pc_man_widget(self):
         """Открывает виджет для управления компьютером"""
-        self.man = PCManWidget(self.tableWidget.selectedItems()[1].text(), self)
-        self.man.show()
+        try:
+            self.setEnabled(False)
+            self.man = PCManWidget(self.tableWidget.selectedItems()[1].text(), self)
+            self.man.show()
+        except IndexError:
+            self.setEnabled(True)
+            self.error.setText('Выберите компьютер')
 
     def show_user_man_widget(self):
         """Открывает виджет для управления пользователем"""
-        self.man2 = UserManWidget(self.tableWidget_2.selectedItems()[0].text(), self)
-        self.man2.show()
+        try:
+            self.setEnabled(False)
+            self.man2 = UserManWidget(self.tableWidget_2.selectedItems()[0].text(), self)
+            self.man2.show()
+        except IndexError:
+            self.setEnabled(True)
+            self.error.setText('Выберите пользователя')
 
     def load_pc_info(self):
         """Запускает процесс, который опрашивает компьютеры, получает информацию для таблицы"""
@@ -341,49 +415,55 @@ class MyWidget(QMainWindow):
 
     def export_users_info(self):
         """Экспортирует данные о пользователях в файл xlsx"""
-        fname = QFileDialog.getSaveFileName(self, 'Cохранить файл',
-                                            'users.xlsx', "Excel(*.xlsx)")[0]
-        if fname[-5:] != '.xlsx':
-            fname += '.xlsx'
-        export = []
-        for i in range(self.tableWidget_2.rowCount()):
-            export.append(list())
-            for j in range(self.tableWidget_2.columnCount()):
-                if self.tableWidget_2.item(i, j):
-                    export[-1].append(self.tableWidget_2.item(i, j).text())
-                else:
-                    export[-1].append('')
-        workbook = xlsxwriter.Workbook(fname)
-        worksheet = workbook.add_worksheet()
-        for i in range(self.tableWidget_2.columnCount()):
-            worksheet.write(0, i, self.tableWidget_2.horizontalHeaderItem(i).text())
-        for i in range(len(export)):
-            for j in range(len(export[i])):
-                worksheet.write(i + 1, j, export[i][j])
-        workbook.close()
+        try:
+            fname = QFileDialog.getSaveFileName(self, 'Cохранить файл',
+                                                'users.xlsx', "Excel(*.xlsx)")[0]
+            if fname[-5:] != '.xlsx':
+                fname += '.xlsx'
+            export = []
+            for i in range(self.tableWidget_2.rowCount()):
+                export.append(list())
+                for j in range(self.tableWidget_2.columnCount()):
+                    if self.tableWidget_2.item(i, j):
+                        export[-1].append(self.tableWidget_2.item(i, j).text())
+                    else:
+                        export[-1].append('')
+            workbook = xlsxwriter.Workbook(fname)
+            worksheet = workbook.add_worksheet()
+            for i in range(self.tableWidget_2.columnCount()):
+                worksheet.write(0, i, self.tableWidget_2.horizontalHeaderItem(i).text())
+            for i in range(len(export)):
+                for j in range(len(export[i])):
+                    worksheet.write(i + 1, j, export[i][j])
+            workbook.close()
+        except Exception:
+            self.error.setText('Ошибка экспорта таблицы')
 
     def export_pc_info(self):
         """Экспортирует данные о компьютерах в файл xlsx"""
-        fname = QFileDialog.getSaveFileName(self, 'Cохранить файл',
-                                            'computers.xlsx', "Excel(*.xlsx)")[0]
-        if fname[-5:] != '.xlsx':
-            fname += '.xlsx'
-        export = []
-        for i in range(self.tableWidget.rowCount()):
-            export.append(list())
-            for j in range(self.tableWidget.columnCount()):
-                if self.tableWidget.item(i, j):
-                    export[-1].append(self.tableWidget.item(i, j).text())
-                else:
-                    export[-1].append('')
-        workbook = xlsxwriter.Workbook(fname)
-        worksheet = workbook.add_worksheet()
-        for i in range(self.tableWidget.columnCount()):
-            worksheet.write(0, i, self.tableWidget.horizontalHeaderItem(i).text())
-        for i in range(len(export)):
-            for j in range(len(export[i])):
-                worksheet.write(i + 1, j, export[i][j])
-        workbook.close()
+        try:
+            fname = QFileDialog.getSaveFileName(self, 'Cохранить файл',
+                                                'computers.xlsx', "Excel(*.xlsx)")[0]
+            if fname[-5:] != '.xlsx':
+                fname += '.xlsx'
+            export = []
+            for i in range(self.tableWidget.rowCount()):
+                export.append(list())
+                for j in range(self.tableWidget.columnCount()):
+                    if self.tableWidget.item(i, j):
+                        export[-1].append(self.tableWidget.item(i, j).text())
+                    else:
+                        export[-1].append('')
+            workbook = xlsxwriter.Workbook(fname)
+            worksheet = workbook.add_worksheet()
+            for i in range(self.tableWidget.columnCount()):
+                worksheet.write(0, i, self.tableWidget.horizontalHeaderItem(i).text())
+            for i in range(len(export)):
+                for j in range(len(export[i])):
+                    worksheet.write(i + 1, j, export[i][j])
+            workbook.close()
+        except Exception:
+            self.error.setText('Ошибка экспорта таблицы')
 
 
 class PCInfWidget(QWidget):
@@ -396,10 +476,14 @@ class PCInfWidget(QWidget):
         self.parent = parent
 
         uic.loadUi('information_pc.ui', self)
+        self.setWindowModality(Qt.ApplicationModal)
         self.show()
         self.treeWidget.header().setSectionResizeMode(5)
         self.thread = SAMThread(self)
         self.thread.start()
+
+    def closeEvent(self, event):
+        self.parent.setEnabled(True)
 
 
 class UserInfWidget(QWidget):
@@ -412,10 +496,21 @@ class UserInfWidget(QWidget):
         self.name = name
 
         uic.loadUi('information_user.ui', self)
+        self.setWindowModality(Qt.ApplicationModal)
         self.show()
 
-        self.thread = SAMThread(self)
-        self.thread.start()
+        try:
+            self.textEdit.clear()
+            self.error.setText('Загружаю информации о пользователе...')
+            for line in main.user_info(self.name):
+                self.textEdit.append(line)
+            self.textEdit.moveCursor(QtGui.QTextCursor.Start)
+            self.error.setText('Готово')
+        except Exception as e:
+            self.error.setText(e)
+
+    def closeEvent(self, event):
+        self.parent.setEnabled(True)
 
 
 class PCManWidget(QWidget):
@@ -428,6 +523,7 @@ class PCManWidget(QWidget):
         self.parent = parent
 
         uic.loadUi('management_pc.ui', self)
+        self.setWindowModality(Qt.ApplicationModal)
         self.show()
 
         self.thread = SAMThread(self)
@@ -441,6 +537,10 @@ class PCManWidget(QWidget):
         self.pushButton_6.clicked.connect(self.start_stop_service)
         self.pushButton_7.clicked.connect(self.change_start_mode_service)
         self.pushButton_8.clicked.connect(self.remove_computer)
+        self.pushButton_9.clicked.connect(self.add_computer)
+
+    def closeEvent(self, event):
+        self.parent.setEnabled(True)
 
     def start_shutdown(self):
         """Запускает процесс, который выключает компьютер"""
@@ -449,9 +549,12 @@ class PCManWidget(QWidget):
 
     def shutdown(self):
         """Выключает компьютер"""
-        self.error.setText('Выключаю компьютер...')
-        main.shutdown(self.ip)
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Выключаю компьютер...')
+            main.shutdown(self.ip)
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
 
     def start_reboot(self):
         """Запускает процесс, который перезагружает компьютер"""
@@ -460,9 +563,12 @@ class PCManWidget(QWidget):
 
     def reboot(self):
         """Перезагружает компьютер"""
-        self.error.setText('Перезагружаю компьютер...')
-        main.reboot(self.ip)
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Перезагружаю компьютер...')
+            main.reboot(self.ip)
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
 
     def start_terminate_process(self):
         """Запускает процесс, который останавливает процесс"""
@@ -471,10 +577,13 @@ class PCManWidget(QWidget):
 
     def terminate_process(self):
         """Останавливает процесс"""
-        self.error.setText('Останавливаю процесс...')
-        main.terminate_process_by_id(self.tableWidget.selectedItems()[1].text(), self.ip)
-        self.tableWidget.removeRow(self.tableWidget.selectedItems()[1].row())
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Останавливаю процесс...')
+            main.terminate_process_by_id(self.tableWidget.selectedItems()[1].text(), self.ip)
+            self.tableWidget.removeRow(self.tableWidget.selectedItems()[1].row())
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
         self.thread = SAMThread(self)
         self.thread.start()
 
@@ -485,10 +594,13 @@ class PCManWidget(QWidget):
 
     def start_service(self):
         """Запускает службу"""
-        self.error.setText('Запускаю службу...')
-        main.start_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
-        self.tableWidget_2.selectedItems()[2].setText('Running')
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Запускаю службу...')
+            main.start_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
+            self.tableWidget_2.selectedItems()[2].setText('Running')
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
         self.thread = SAMThread(self)
         self.thread.start()
 
@@ -499,10 +611,13 @@ class PCManWidget(QWidget):
 
     def stop_service(self):
         """Останавливает службу"""
-        self.error.setText('Останавливаю службу...')
-        main.stop_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
-        self.tableWidget_2.selectedItems()[2].setText('Stopped')
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Останавливаю службу...')
+            main.stop_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
+            self.tableWidget_2.selectedItems()[2].setText('Stopped')
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
         self.thread = SAMThread(self)
         self.thread.start()
 
@@ -513,9 +628,12 @@ class PCManWidget(QWidget):
 
     def run_register(self):
         """Запускает редактор реестра"""
-        self.error.setText('Запускаю редактор реестра...')
-        main.run_register(self.ip)
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Запускаю редактор реестра...')
+            main.run_register(self.ip)
+            self.error.setText('Готово')
+        except:
+            self.error.setText(E)
 
     def change_start_mode_service(self):
         """Изменяет режим запуска службы"""
@@ -532,9 +650,19 @@ class PCManWidget(QWidget):
 
     def remove_computer(self):
         """Выводит компьютер из домена"""
-        self.error.setText('Вывожу компьютер из домена...')
-        main.remove_computer(self.ip)
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Вывожу компьютер из домена...')
+            main.remove_computer(self.ip)
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
+
+    def add_computer(self):
+        try:
+            main.add_computer(self.lineEdit.text())
+        except Exception as e:
+            self.error.setText(e)
+
 
 class UserManWidget(QWidget):
     """Виджет для управления пользователем"""
@@ -546,10 +674,14 @@ class UserManWidget(QWidget):
         self.name = name
 
         uic.loadUi('management_user.ui', self)
+        self.setWindowModality(Qt.ApplicationModal)
         self.show()
 
         self.pushButton.clicked.connect(self.start_block_user)
         self.pushButton_2.clicked.connect(self.start_unblock_user)
+
+    def closeEvent(self, event):
+        self.parent.setEnabled(True)
 
     def start_block_user(self):
         """Запускает процесс, который блокирует пользователя"""
@@ -558,9 +690,12 @@ class UserManWidget(QWidget):
 
     def block_user(self):
         """Блокирует пользователя"""
-        self.error.setText('Блокирую пользователя...')
-        main.disable_user(self.name)
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Блокирую пользователя...')
+            main.disable_user(self.name)
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
 
     def start_unblock_user(self):
         """Запускает процесс, который разблокирует пользователя"""
@@ -569,9 +704,12 @@ class UserManWidget(QWidget):
 
     def unblock_user(self):
         """Разблокирует пользователя"""
-        self.error.setText('Разблокирую пользователя...')
-        main.enable_user(self.name)
-        self.error.setText('Готово')
+        try:
+            self.error.setText('Разблокирую пользователя...')
+            main.enable_user(self.name)
+            self.error.setText('Готово')
+        except Exception as E:
+            self.error.setText(E)
 
 
 if __name__ == '__main__':
