@@ -4,6 +4,6 @@ conf.py
 index.rst
 make.bat
 Makefile
-_build/doctrees
-_static
-_templates
+build
+dist
+docs

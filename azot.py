@@ -1,5 +1,4 @@
 import sys
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidget
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QScrollBar, QTreeWidgetItem
 from PyQt5.QtCore import QThread, pyqtSignal, QObject, Qt
@@ -8,9 +7,12 @@ import xlsxwriter
 import time
 import threading
 import main
+import os
+import ctypes
+from ui_file import Ui_MainWindow, Ui_management, Ui_user_management, Ui_user_info, Ui_information
 
 
-def format_info(inf):
+def format_info(inf: list):
     """Форматирует информацию для вывода в TextEdit"""
     while inf[0] == '':
         inf = inf[1:]
@@ -20,6 +22,7 @@ def format_info(inf):
 
 
 class Signal(QObject):
+    """Сигнал, реагируюющий на получение информации"""
     signal = pyqtSignal()
     user_signal = pyqtSignal()
 
@@ -49,13 +52,12 @@ class SAMThread(QThread):
             self.load_user_man_info()
 
     def load_pc_info(self):
-        """Получает информацию о компьютерах для таблицы"""
+        """Загружает информацию о компьютерах в таблицу"""
         self.widget.error.setText('Загрузка информации о компьютерах...')
-        ips = [('Этот компьютер', 'localhost'), ('netbook', '192.168.136.187')]
-        # if not main.in_domain():
-        #     ips = [('Этот компьютер', 'localhost')]
-        # else:
-        #     ips = main.get_ips()
+        if not main.in_domain():
+            ips = [('Этот компьютер', 'localhost')]
+        else:
+            ips = main.get_ips()
         self.pc_data = []
         threads = []
         for i in ips:
@@ -64,22 +66,50 @@ class SAMThread(QThread):
                 threads.append(thread)
                 thread.start()
             except Exception as E:
-                self.widget.error.setText(E)
+                self.widget.error.setText(str(E))
         for thread in threads:
             thread.join()
         self.widget.s.signal.emit()
         self.widget.pc_info = self.pc_data
         self.widget.error.setText('')
 
-    def threading_func(self, name, ip):
-        self.pc_data.append((name,
-                             ip,
-                             ', ',
-                             ', ',
-                             f'{round(main.free_space(ip), 2)} GB',
-                             f'{round(main.ram_capacity(ip), 2)} GB',
-                             ', '.join(main.processor_name(ip)),
-                             main.last_boot_up_time(ip)))
+    def threading_func(self, name: str, ip: str):
+        """Получает информацию о компьютерах"""
+        try:
+            admins = ', '.join(main.list_administrators(ip))
+        except Exception:
+            admins = ''
+        try:
+            remote_users = ', '.join(main.list_remote_users(ip))
+        except Exception:
+            remote_users = ''
+        try:
+            free_space = f'{round(main.free_space(ip), 2)} GB'
+        except Exception:
+            free_space = ''
+        try:
+            ram_capacity = f'{round(main.ram_capacity(ip), 2)} GB'
+        except Exception:
+            ram_capacity = ''
+        try:
+            processor = ', '.join(main.processor_name(ip))
+        except Exception:
+            processor = ''
+        try:
+            last_boot_up_time = main.last_boot_up_time(ip)
+        except Exception:
+            last_boot_up_time = ''
+        try:
+            self.pc_data.append((name,
+                                 ip,
+                                 admins,
+                                 remote_users,
+                                 free_space,
+                                 ram_capacity,
+                                 processor,
+                                 last_boot_up_time))
+        except Exception:
+            pass
 
     def load_users_info(self):
         """Получает информацию о пользователях для таблицы"""
@@ -90,7 +120,7 @@ class SAMThread(QThread):
         self.widget.error.setText('')
 
     def get_pc_info(self):
-        """Получает расширенную информацию о компьютере"""
+        """Загружает расширенную информацию о компьютере"""
         ip = self.widget.ip
         self.widget.tabWidget.setEnabled(False)
 
@@ -101,7 +131,7 @@ class SAMThread(QThread):
             for i in hdd:
                 self.widget.textEdit.append(i)
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
         try:
             self.widget.error.setText('Загрузка информации о разделах...')
@@ -111,7 +141,7 @@ class SAMThread(QThread):
                 self.widget.textEdit_7.append(i)
             self.widget.textEdit_7.moveCursor(QtGui.QTextCursor.Start)
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
         try:
             self.widget.error.setText('Загрузка информации об операционной системе...')
@@ -120,7 +150,7 @@ class SAMThread(QThread):
             for i in os:
                 self.widget.textEdit_2.append(i)
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
         try:
             self.widget.error.setText('Загрузка информации о процессорах...')
@@ -129,7 +159,7 @@ class SAMThread(QThread):
             for i in cpu:
                 self.widget.textEdit_3.append(i)
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
         try:
             self.widget.error.setText('Загрузка информации об оперативной памяти...')
@@ -138,7 +168,7 @@ class SAMThread(QThread):
             for i in ram:
                 self.widget.textEdit_5.append(i)
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
         try:
             self.widget.error.setText('Загрузка информации о видеокартах...')
@@ -147,7 +177,7 @@ class SAMThread(QThread):
             for i in vc:
                 self.widget.textEdit_4.append(i)
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
         try:
             self.widget.error.setText('Загрузка информации о сетевых адаптерах...')
@@ -156,7 +186,9 @@ class SAMThread(QThread):
             for line in net:
                 self.widget.textEdit_6.append(line)
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
+
+        self.widget.tabWidget.setEnabled(True)
 
         try:
             self.widget.error.setText('Загрузка информации о пользователях...')
@@ -169,24 +201,12 @@ class SAMThread(QThread):
                     child.setText(0, j)
                 self.widget.treeWidget.insertTopLevelItem(i, item)
         except Exception as E:
-            self.widget.error.setText(E)
-
-        try:
-            self.widget.textEdit.moveCursor(QtGui.QTextCursor.Start)
-            self.widget.textEdit_2.moveCursor(QtGui.QTextCursor.Start)
-            self.widget.textEdit_3.moveCursor(QtGui.QTextCursor.Start)
-            self.widget.textEdit_4.moveCursor(QtGui.QTextCursor.Start)
-            self.widget.textEdit_5.moveCursor(QtGui.QTextCursor.Start)
-            self.widget.textEdit_6.moveCursor(QtGui.QTextCursor.Start)
-            self.widget.textEdit_7.moveCursor(QtGui.QTextCursor.Start)
-        except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
         self.widget.error.setText('')
-        self.widget.tabWidget.setEnabled(True)
 
     def get_user_info(self):
-        """Получает расширенную информацию о пользователе"""
+        """Загружает расширенную информацию о пользователе"""
         try:
             self.widget.textEdit.clear()
             self.widget.error.setText('Загрузка информации о пользователе...')
@@ -198,9 +218,10 @@ class SAMThread(QThread):
                 self.widget.textEdit.append(line)
             self.widget.error.setText('')
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
 
     def threading_user_info(self):
+        """Получает расширенную информацию о пользователе"""
         self.user_info = main.user_info(self.widget.name)
 
     def load_pc_man_info(self):
@@ -217,7 +238,7 @@ class SAMThread(QThread):
                 self.widget.tableWidget.setItem(i, 0, QTableWidgetItem(j[0]))
                 self.widget.tableWidget.setItem(i, 1, QTableWidgetItem(j[1]))
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
         finally:
             self.widget.tableWidget.setSortingEnabled(True)
 
@@ -234,16 +255,13 @@ class SAMThread(QThread):
                 self.widget.tableWidget_2.setItem(i, 2, QTableWidgetItem(j[2]))
             self.widget.error.setText('')
         except Exception as E:
-            self.widget.error.setText(E)
+            self.widget.error.setText(str(E))
         finally:
             self.widget.tableWidget_2.setSortingEnabled(True)
             self.widget.tabWidget.setEnabled(True)
 
-    def load_user_man_info(self):
-        pass
 
-
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     """Главное окно программы"""
 
     def __init__(self):
@@ -259,8 +277,17 @@ class MyWidget(QMainWindow):
         self.s.signal.connect(self.update_pc_info_table)
         self.s.user_signal.connect(self.update_user_info_table)
 
-        uic.loadUi('azot.ui', self)
+        self.setupUi(self)
+        self.showMaximized()
         self.show()
+        try:
+            is_admin = os.getuid() == 0
+        except AttributeError:
+            is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+        if not is_admin:
+            self.setEnabled(False)
+            self.error.setText('Запустите приложение с правами администратора')
+            return
 
         self.lineEdit.textChanged.connect(self.search_pc_info)
         self.lineEdit_2.textChanged.connect(self.search_users_info)
@@ -279,7 +306,6 @@ class MyWidget(QMainWindow):
 
         self.tableWidget.horizontalHeader().setSectionResizeMode(1)
         self.tableWidget_2.horizontalHeader().setSectionResizeMode(1)
-
 
         self.start_automatic_load_pc_info()
 
@@ -466,16 +492,16 @@ class MyWidget(QMainWindow):
             self.error.setText('Ошибка экспорта таблицы')
 
 
-class PCInfWidget(QWidget):
+class PCInfWidget(QWidget, Ui_information):
     """Виджет с расширенной информацией о компьютере"""
 
-    def __init__(self, ip, parent):
+    def __init__(self, ip: str, parent: MyWidget):
         """Инициализация виджета"""
         super().__init__()
         self.ip = ip
         self.parent = parent
 
-        uic.loadUi('information_pc.ui', self)
+        self.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
         self.show()
         self.treeWidget.header().setSectionResizeMode(5)
@@ -483,19 +509,20 @@ class PCInfWidget(QWidget):
         self.thread.start()
 
     def closeEvent(self, event):
+        """Разблокирует главное окно после закрытия виджета"""
         self.parent.setEnabled(True)
 
 
-class UserInfWidget(QWidget):
+class UserInfWidget(QWidget, Ui_user_info):
     """Виджета с расширенной информацией о пользователе"""
 
-    def __init__(self, name, parent):
+    def __init__(self, name: str, parent: MyWidget):
         """Инициализация виджета"""
         super().__init__()
         self.parent = parent
         self.name = name
 
-        uic.loadUi('information_user.ui', self)
+        self.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
         self.show()
 
@@ -505,24 +532,25 @@ class UserInfWidget(QWidget):
             for line in main.user_info(self.name):
                 self.textEdit.append(line)
             self.textEdit.moveCursor(QtGui.QTextCursor.Start)
-            self.error.setText('Готово')
-        except Exception as e:
-            self.error.setText(e)
+            self.error.setText('')
+        except Exception as E:
+            self.error.setText(str(E))
 
     def closeEvent(self, event):
+        """Разблокирует главное окно после закрытия виджета"""
         self.parent.setEnabled(True)
 
 
-class PCManWidget(QWidget):
+class PCManWidget(QWidget, Ui_management):
     """Виджет для управления компьютером"""
 
-    def __init__(self, ip, parent):
+    def __init__(self, ip: str, parent: MyWidget):
         """Инициализация виджета"""
         super().__init__()
         self.ip = ip
         self.parent = parent
 
-        uic.loadUi('management_pc.ui', self)
+        self.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
         self.show()
 
@@ -536,10 +564,12 @@ class PCManWidget(QWidget):
         self.pushButton_5.clicked.connect(self.start_start_service)
         self.pushButton_6.clicked.connect(self.start_stop_service)
         self.pushButton_7.clicked.connect(self.change_start_mode_service)
-        self.pushButton_8.clicked.connect(self.remove_computer)
-        self.pushButton_9.clicked.connect(self.add_computer)
+        self.pushButton_8.clicked.connect(self.start_remove_computer)
+        self.pushButton_9.clicked.connect(self.start_add_computer)
+        self.pushButton_10.clicked.connect(self.update)
 
     def closeEvent(self, event):
+        """Разблокирует главное окно после закрытия виджета"""
         self.parent.setEnabled(True)
 
     def start_shutdown(self):
@@ -552,9 +582,9 @@ class PCManWidget(QWidget):
         try:
             self.error.setText('Выключаю компьютер...')
             main.shutdown(self.ip)
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
 
     def start_reboot(self):
         """Запускает процесс, который перезагружает компьютер"""
@@ -566,9 +596,9 @@ class PCManWidget(QWidget):
         try:
             self.error.setText('Перезагружаю компьютер...')
             main.reboot(self.ip)
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
 
     def start_terminate_process(self):
         """Запускает процесс, который останавливает процесс"""
@@ -581,9 +611,9 @@ class PCManWidget(QWidget):
             self.error.setText('Останавливаю процесс...')
             main.terminate_process_by_id(self.tableWidget.selectedItems()[1].text(), self.ip)
             self.tableWidget.removeRow(self.tableWidget.selectedItems()[1].row())
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
         self.thread = SAMThread(self)
         self.thread.start()
 
@@ -598,9 +628,9 @@ class PCManWidget(QWidget):
             self.error.setText('Запускаю службу...')
             main.start_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
             self.tableWidget_2.selectedItems()[2].setText('Running')
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
         self.thread = SAMThread(self)
         self.thread.start()
 
@@ -615,9 +645,9 @@ class PCManWidget(QWidget):
             self.error.setText('Останавливаю службу...')
             main.stop_service(self.tableWidget_2.selectedItems()[0].text(), self.ip)
             self.tableWidget_2.selectedItems()[2].setText('Stopped')
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
         self.thread = SAMThread(self)
         self.thread.start()
 
@@ -628,59 +658,70 @@ class PCManWidget(QWidget):
 
     def run_register(self):
         """Запускает редактор реестра"""
-        try:
-            self.error.setText('Запускаю редактор реестра...')
-            main.run_register(self.ip)
-            self.error.setText('Готово')
-        except:
-            self.error.setText(E)
+        self.error.setText('Запускаю редактор реестра...')
+        main.run_register(self.ip)
+        self.error.setText('')
 
     def change_start_mode_service(self):
         """Изменяет режим запуска службы"""
         self.error.setText('Меняю режим запуска...')
         mode = self.comboBox.currentText()
-        items = self.tableWidget_2.selectedItems()
-        if main.change_start_mode_service(items[0].text(), mode,  self.ip):
-            self.error.setText('Готово')
-            items[1].setText(mode)
-            self.thread = SAMThread(self)
-            self.thread.start()
-        else:
-            self.error.setText('Не удалось изменить режим запуска службы')
+        self.error.setText('')
+        self.thread = SAMThread(self)
+        self.thread.start()
+
+    def start_remove_computer(self):
+        """Запускает процесс, который выводит компьютер из домена"""
+        self.thread = threading.Thread(target=self.remove_computer)
+        self.thread.start()
 
     def remove_computer(self):
         """Выводит компьютер из домена"""
         try:
             self.error.setText('Вывожу компьютер из домена...')
             main.remove_computer(self.ip)
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
+
+    def start_add_computer(self):
+        """Запускает процесс, который добаляет компьютер в домен"""
+        self.thread = threading.Thread(target=self.add_computer)
+        self.thread.start()
 
     def add_computer(self):
+        """Добавляет компьютер в домен"""
         try:
             main.add_computer(self.lineEdit.text())
-        except Exception as e:
-            self.error.setText(e)
+        except Exception as E:
+            self.error.setText(str(E))
+
+    def update(self):
+        """Обновляет информацию о процессах и службах"""
+        self.thread = SAMThread(self)
+        self.thread.start()
 
 
-class UserManWidget(QWidget):
+class UserManWidget(QWidget, Ui_user_management):
     """Виджет для управления пользователем"""
 
-    def __init__(self, name, parent):
+    def __init__(self, name: str, parent: MyWidget):
         """Инициализация виджета"""
         super().__init__()
         self.parent = parent
         self.name = name
 
-        uic.loadUi('management_user.ui', self)
+        self.setupUi(self)
         self.setWindowModality(Qt.ApplicationModal)
         self.show()
 
         self.pushButton.clicked.connect(self.start_block_user)
         self.pushButton_2.clicked.connect(self.start_unblock_user)
+        self.pushButton_3.clicked.connect(self.start_who_blocked_user)
+        self.pushButton_4.clicked.connect(self.start_move_user)
 
     def closeEvent(self, event):
+        """Разблокирует главное окно после закрытия виджета"""
         self.parent.setEnabled(True)
 
     def start_block_user(self):
@@ -693,9 +734,9 @@ class UserManWidget(QWidget):
         try:
             self.error.setText('Блокирую пользователя...')
             main.disable_user(self.name)
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
 
     def start_unblock_user(self):
         """Запускает процесс, который разблокирует пользователя"""
@@ -707,9 +748,29 @@ class UserManWidget(QWidget):
         try:
             self.error.setText('Разблокирую пользователя...')
             main.enable_user(self.name)
-            self.error.setText('Готово')
+            self.error.setText('')
         except Exception as E:
-            self.error.setText(E)
+            self.error.setText(str(E))
+
+    def start_move_user(self):
+        """Запускает процесс, который ищет пользователя, который ищет пользователя, который заблокировал выбранного пользователя"""
+        self.thread = threading.Thread(target=self.move_user, daemon=True)
+        self.thread.start()
+
+    def move_user(self):
+        self.error.setText('Перемещаю пользователя')
+        main.move_user(self.parent.tableWidget_2.selectedItems()[1], self.lineEdit_2.text())
+        self.error.setText('')
+
+    def start_who_blocked_user(self):
+        """Запускает процесс, который ищет пользователя, который заблокировал выбранного пользователя"""
+        self.thread = threading.Thread(target=self.who_blocked_user, daemon=True)
+        self.thread.start()
+
+    def who_blocked_user(self):
+        self.error.setText('Ищу пользователя')
+        self.lineEdit.setText(main.who_blocked_user(self.name))
+        self.error.setText('')
 
 
 if __name__ == '__main__':

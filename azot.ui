@@ -47,7 +47,7 @@
     <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -72,7 +72,7 @@
            <bool>true</bool>
           </property>
           <property name="rowCount">
-           <number>0</number>
+           <number>25</number>
           </property>
           <attribute name="horizontalHeaderCascadingSectionResizes">
            <bool>false</bool>
@@ -86,6 +86,131 @@
           <attribute name="verticalHeaderStretchLastSection">
            <bool>false</bool>
           </attribute>
+          <row>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>3</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>4</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>5</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>6</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>7</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>8</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>9</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>10</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>11</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>12</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>13</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>14</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>15</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>16</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>17</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>18</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>19</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>20</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>21</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>22</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>23</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>24</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>25</string>
+           </property>
+          </row>
           <column>
            <property name="text">
             <string>Название</string>
@@ -126,6 +251,1006 @@
             <string>Время работы</string>
            </property>
           </column>
+          <item row="0" column="0">
+           <property name="text">
+            <string>netbook-1</string>
+           </property>
+          </item>
+          <item row="0" column="1">
+           <property name="text">
+            <string>156.203.64.125</string>
+           </property>
+          </item>
+          <item row="0" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="0" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="0" column="4">
+           <property name="text">
+            <string>217.4 GB</string>
+           </property>
+          </item>
+          <item row="0" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="0" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="0" column="7">
+           <property name="text">
+            <string>6:35:11</string>
+           </property>
+          </item>
+          <item row="1" column="0">
+           <property name="text">
+            <string>netbook-2</string>
+           </property>
+          </item>
+          <item row="1" column="1">
+           <property name="text">
+            <string>162.113.125.61</string>
+           </property>
+          </item>
+          <item row="1" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="1" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="1" column="4">
+           <property name="text">
+            <string>176.5 GB</string>
+           </property>
+          </item>
+          <item row="1" column="5">
+           <property name="text">
+            <string>6 GB</string>
+           </property>
+          </item>
+          <item row="1" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="1" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="2" column="0">
+           <property name="text">
+            <string>netbook-3</string>
+           </property>
+          </item>
+          <item row="2" column="1">
+           <property name="text">
+            <string>247.66.191.217</string>
+           </property>
+          </item>
+          <item row="2" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="2" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="2" column="4">
+           <property name="text">
+            <string>131.6 GB</string>
+           </property>
+          </item>
+          <item row="2" column="5">
+           <property name="text">
+            <string>6 GB</string>
+           </property>
+          </item>
+          <item row="2" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="2" column="7">
+           <property name="text">
+            <string>6:35:13</string>
+           </property>
+          </item>
+          <item row="3" column="0">
+           <property name="text">
+            <string>netbook-4</string>
+           </property>
+          </item>
+          <item row="3" column="1">
+           <property name="text">
+            <string>94.181.214.91</string>
+           </property>
+          </item>
+          <item row="3" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="3" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="3" column="4">
+           <property name="text">
+            <string>34.4 GB</string>
+           </property>
+          </item>
+          <item row="3" column="5">
+           <property name="text">
+            <string>8 GB</string>
+           </property>
+          </item>
+          <item row="3" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="3" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="4" column="0">
+           <property name="text">
+            <string>netbook-5</string>
+           </property>
+          </item>
+          <item row="4" column="1">
+           <property name="text">
+            <string>15.94.70.169</string>
+           </property>
+          </item>
+          <item row="4" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="4" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="4" column="4">
+           <property name="text">
+            <string>51.4 GB</string>
+           </property>
+          </item>
+          <item row="4" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="4" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="4" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="5" column="0">
+           <property name="text">
+            <string>netbook-6</string>
+           </property>
+          </item>
+          <item row="5" column="1">
+           <property name="text">
+            <string>133.20.161.163</string>
+           </property>
+          </item>
+          <item row="5" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="5" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="5" column="4">
+           <property name="text">
+            <string>30.8 GB</string>
+           </property>
+          </item>
+          <item row="5" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="5" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="5" column="7">
+           <property name="text">
+            <string>6:35:15</string>
+           </property>
+          </item>
+          <item row="6" column="0">
+           <property name="text">
+            <string>netbook-7</string>
+           </property>
+          </item>
+          <item row="6" column="1">
+           <property name="text">
+            <string>174.37.149.9</string>
+           </property>
+          </item>
+          <item row="6" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="6" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="6" column="4">
+           <property name="text">
+            <string>120.6 GB</string>
+           </property>
+          </item>
+          <item row="6" column="5">
+           <property name="text">
+            <string>6 GB</string>
+           </property>
+          </item>
+          <item row="6" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="6" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="7" column="0">
+           <property name="text">
+            <string>netbook-8</string>
+           </property>
+          </item>
+          <item row="7" column="1">
+           <property name="text">
+            <string>123.21.84.12</string>
+           </property>
+          </item>
+          <item row="7" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="7" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="7" column="4">
+           <property name="text">
+            <string>41.9 GB</string>
+           </property>
+          </item>
+          <item row="7" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="7" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="7" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="8" column="0">
+           <property name="text">
+            <string>netbook-9</string>
+           </property>
+          </item>
+          <item row="8" column="1">
+           <property name="text">
+            <string>128.1.53.117</string>
+           </property>
+          </item>
+          <item row="8" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="8" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="8" column="4">
+           <property name="text">
+            <string>222.6 GB</string>
+           </property>
+          </item>
+          <item row="8" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="8" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="8" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="9" column="0">
+           <property name="text">
+            <string>netbook-10</string>
+           </property>
+          </item>
+          <item row="9" column="1">
+           <property name="text">
+            <string>60.140.191.225</string>
+           </property>
+          </item>
+          <item row="9" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="9" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="9" column="4">
+           <property name="text">
+            <string>286.8 GB</string>
+           </property>
+          </item>
+          <item row="9" column="5">
+           <property name="text">
+            <string>6 GB</string>
+           </property>
+          </item>
+          <item row="9" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="9" column="7">
+           <property name="text">
+            <string>6:35:13</string>
+           </property>
+          </item>
+          <item row="10" column="0">
+           <property name="text">
+            <string>netbook-11</string>
+           </property>
+          </item>
+          <item row="10" column="1">
+           <property name="text">
+            <string>12.118.67.125</string>
+           </property>
+          </item>
+          <item row="10" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="10" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="10" column="4">
+           <property name="text">
+            <string>129.4 GB</string>
+           </property>
+          </item>
+          <item row="10" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="10" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="10" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="11" column="0">
+           <property name="text">
+            <string>netbook-12</string>
+           </property>
+          </item>
+          <item row="11" column="1">
+           <property name="text">
+            <string>244.71.101.28</string>
+           </property>
+          </item>
+          <item row="11" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="11" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="11" column="4">
+           <property name="text">
+            <string>123.6 GB</string>
+           </property>
+          </item>
+          <item row="11" column="5">
+           <property name="text">
+            <string>8 GB</string>
+           </property>
+          </item>
+          <item row="11" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="11" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="12" column="0">
+           <property name="text">
+            <string>netbook-13</string>
+           </property>
+          </item>
+          <item row="12" column="1">
+           <property name="text">
+            <string>121.135.245.49</string>
+           </property>
+          </item>
+          <item row="12" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="12" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="12" column="4">
+           <property name="text">
+            <string>169.1 GB</string>
+           </property>
+          </item>
+          <item row="12" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="12" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="12" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="13" column="0">
+           <property name="text">
+            <string>netbook-14</string>
+           </property>
+          </item>
+          <item row="13" column="1">
+           <property name="text">
+            <string>251.213.56.148</string>
+           </property>
+          </item>
+          <item row="13" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="13" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="13" column="4">
+           <property name="text">
+            <string>272.7 GB</string>
+           </property>
+          </item>
+          <item row="13" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="13" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="13" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="14" column="0">
+           <property name="text">
+            <string>netbook-15</string>
+           </property>
+          </item>
+          <item row="14" column="1">
+           <property name="text">
+            <string>121.135.245.49</string>
+           </property>
+          </item>
+          <item row="14" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="14" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="14" column="4">
+           <property name="text">
+            <string>258.9 GB</string>
+           </property>
+          </item>
+          <item row="14" column="5">
+           <property name="text">
+            <string>6 GB</string>
+           </property>
+          </item>
+          <item row="14" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="14" column="7">
+           <property name="text">
+            <string>6:35:14</string>
+           </property>
+          </item>
+          <item row="15" column="0">
+           <property name="text">
+            <string>netbook-16</string>
+           </property>
+          </item>
+          <item row="15" column="1">
+           <property name="text">
+            <string>205.243.156.183</string>
+           </property>
+          </item>
+          <item row="15" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="15" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="15" column="4">
+           <property name="text">
+            <string>54.5 GB</string>
+           </property>
+          </item>
+          <item row="15" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="15" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="15" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="16" column="0">
+           <property name="text">
+            <string>netbook-17</string>
+           </property>
+          </item>
+          <item row="16" column="1">
+           <property name="text">
+            <string>110.244.34.132</string>
+           </property>
+          </item>
+          <item row="16" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="16" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="16" column="4">
+           <property name="text">
+            <string>160.4 GB</string>
+           </property>
+          </item>
+          <item row="16" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="16" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="16" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="17" column="0">
+           <property name="text">
+            <string>netbook-18</string>
+           </property>
+          </item>
+          <item row="17" column="1">
+           <property name="text">
+            <string>100.3.180.246</string>
+           </property>
+          </item>
+          <item row="17" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="17" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="17" column="4">
+           <property name="text">
+            <string>270.7 GB</string>
+           </property>
+          </item>
+          <item row="17" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="17" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="17" column="7">
+           <property name="text">
+            <string>6:35:15</string>
+           </property>
+          </item>
+          <item row="18" column="0">
+           <property name="text">
+            <string>netbook-19</string>
+           </property>
+          </item>
+          <item row="18" column="1">
+           <property name="text">
+            <string>86.193.168.39</string>
+           </property>
+          </item>
+          <item row="18" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="18" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="18" column="4">
+           <property name="text">
+            <string>140.2 GB</string>
+           </property>
+          </item>
+          <item row="18" column="5">
+           <property name="text">
+            <string>8 GB</string>
+           </property>
+          </item>
+          <item row="18" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="18" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="19" column="0">
+           <property name="text">
+            <string>netbook-20</string>
+           </property>
+          </item>
+          <item row="19" column="1">
+           <property name="text">
+            <string>163.230.81.26</string>
+           </property>
+          </item>
+          <item row="19" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="19" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="19" column="4">
+           <property name="text">
+            <string>152.3 GB</string>
+           </property>
+          </item>
+          <item row="19" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="19" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="19" column="7">
+           <property name="text">
+            <string>6:35:10</string>
+           </property>
+          </item>
+          <item row="20" column="0">
+           <property name="text">
+            <string>netbook-21</string>
+           </property>
+          </item>
+          <item row="20" column="1">
+           <property name="text">
+            <string>137.16.41.3</string>
+           </property>
+          </item>
+          <item row="20" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="20" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="20" column="4">
+           <property name="text">
+            <string>133.3 GB</string>
+           </property>
+          </item>
+          <item row="20" column="5">
+           <property name="text">
+            <string>6 GB</string>
+           </property>
+          </item>
+          <item row="20" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="20" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="21" column="0">
+           <property name="text">
+            <string>netbook-22</string>
+           </property>
+          </item>
+          <item row="21" column="1">
+           <property name="text">
+            <string>183.236.33.20</string>
+           </property>
+          </item>
+          <item row="21" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="21" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="21" column="4">
+           <property name="text">
+            <string>212.2 GB</string>
+           </property>
+          </item>
+          <item row="21" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="21" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="21" column="7">
+           <property name="text">
+            <string>6:35:11</string>
+           </property>
+          </item>
+          <item row="22" column="0">
+           <property name="text">
+            <string>netbook-23</string>
+           </property>
+          </item>
+          <item row="22" column="1">
+           <property name="text">
+            <string>121.87.182.216</string>
+           </property>
+          </item>
+          <item row="22" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="22" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="22" column="4">
+           <property name="text">
+            <string>223.3 GB</string>
+           </property>
+          </item>
+          <item row="22" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="22" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="22" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="23" column="0">
+           <property name="text">
+            <string>netbook-24</string>
+           </property>
+          </item>
+          <item row="23" column="1">
+           <property name="text">
+            <string>139.190.31.90</string>
+           </property>
+          </item>
+          <item row="23" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="23" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="23" column="4">
+           <property name="text">
+            <string>93.4 GB</string>
+           </property>
+          </item>
+          <item row="23" column="5">
+           <property name="text">
+            <string>8 GB</string>
+           </property>
+          </item>
+          <item row="23" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="23" column="7">
+           <property name="text">
+            <string>6:35:12</string>
+           </property>
+          </item>
+          <item row="24" column="0">
+           <property name="text">
+            <string>netbook-25</string>
+           </property>
+          </item>
+          <item row="24" column="1">
+           <property name="text">
+            <string>23.54.180.125</string>
+           </property>
+          </item>
+          <item row="24" column="2">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="24" column="3">
+           <property name="text">
+            <string>Администратор, admin1, admin2</string>
+           </property>
+          </item>
+          <item row="24" column="4">
+           <property name="text">
+            <string>192.5 GB</string>
+           </property>
+          </item>
+          <item row="24" column="5">
+           <property name="text">
+            <string>4 GB</string>
+           </property>
+          </item>
+          <item row="24" column="6">
+           <property name="text">
+            <string>Core i3-10100F</string>
+           </property>
+          </item>
+          <item row="24" column="7">
+           <property name="text">
+            <string>6:35:16</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="2" column="3">
@@ -234,7 +1359,7 @@
            <bool>true</bool>
           </property>
           <property name="rowCount">
-           <number>0</number>
+           <number>25</number>
           </property>
           <attribute name="horizontalHeaderCascadingSectionResizes">
            <bool>false</bool>
@@ -248,6 +1373,131 @@
           <attribute name="verticalHeaderStretchLastSection">
            <bool>false</bool>
           </attribute>
+          <row>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>3</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>4</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>5</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>6</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>7</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>8</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>9</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>10</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>11</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>12</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>13</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>14</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>15</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>16</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>17</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>18</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>19</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>20</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>21</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>22</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>23</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>24</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>25</string>
+           </property>
+          </row>
           <column>
            <property name="text">
             <string>Имя</string>
@@ -278,6 +1528,756 @@
             <string>Активирован</string>
            </property>
           </column>
+          <item row="0" column="0">
+           <property name="text">
+            <string>kochnev_ld</string>
+           </property>
+          </item>
+          <item row="0" column="1">
+           <property name="text">
+            <string>S-1-5-21-1175651296-1316133944-203321314-1005</string>
+           </property>
+          </item>
+          <item row="0" column="2">
+           <property name="text">
+            <string>Кочнев Леонид Макарович</string>
+           </property>
+          </item>
+          <item row="0" column="3">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item row="0" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="0" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="1" column="0">
+           <property name="text">
+            <string>derzhavin_ve</string>
+           </property>
+          </item>
+          <item row="1" column="1">
+           <property name="text">
+            <string>S-1-5-21-6145555071-1456871003-078643556-0451</string>
+           </property>
+          </item>
+          <item row="1" column="2">
+           <property name="text">
+            <string>Державин Викентий Эрнестович</string>
+           </property>
+          </item>
+          <item row="1" column="3">
+           <property name="text">
+            <string>2</string>
+           </property>
+          </item>
+          <item row="1" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="1" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="2" column="0">
+           <property name="text">
+            <string>smagin_lt</string>
+           </property>
+          </item>
+          <item row="2" column="1">
+           <property name="text">
+            <string>S-1-5-21-1692901902-7864168498-465168516-1656</string>
+           </property>
+          </item>
+          <item row="2" column="2">
+           <property name="text">
+            <string>Смагин Лев Тихонович</string>
+           </property>
+          </item>
+          <item row="2" column="3">
+           <property name="text">
+            <string>3</string>
+           </property>
+          </item>
+          <item row="2" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="2" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="3" column="0">
+           <property name="text">
+            <string>tereshchenko_bd</string>
+           </property>
+          </item>
+          <item row="3" column="1">
+           <property name="text">
+            <string>S-1-5-21-9951534930-8965401654-864056540-7894</string>
+           </property>
+          </item>
+          <item row="3" column="2">
+           <property name="text">
+            <string>Терещенко Богдан Денисович</string>
+           </property>
+          </item>
+          <item row="3" column="3">
+           <property name="text">
+            <string>4</string>
+           </property>
+          </item>
+          <item row="3" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="3" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="4" column="0">
+           <property name="text">
+            <string>kruchinin_mm</string>
+           </property>
+          </item>
+          <item row="4" column="1">
+           <property name="text">
+            <string>S-1-5-21-696277889-86146851489-017634351-1076</string>
+           </property>
+          </item>
+          <item row="4" column="2">
+           <property name="text">
+            <string>Кручинин Михей Макарович</string>
+           </property>
+          </item>
+          <item row="4" column="3">
+           <property name="text">
+            <string>5</string>
+           </property>
+          </item>
+          <item row="4" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="4" column="5">
+           <property name="text">
+            <string>False</string>
+           </property>
+          </item>
+          <item row="5" column="0">
+           <property name="text">
+            <string>danilova_am</string>
+           </property>
+          </item>
+          <item row="5" column="1">
+           <property name="text">
+            <string>S-1-5-21-320911606-09643132133-046854106-8714</string>
+           </property>
+          </item>
+          <item row="5" column="2">
+           <property name="text">
+            <string>Данилова Анна Михеевна</string>
+           </property>
+          </item>
+          <item row="5" column="3">
+           <property name="text">
+            <string>6</string>
+           </property>
+          </item>
+          <item row="5" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="5" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="6" column="0">
+           <property name="text">
+            <string>vikash_ke</string>
+           </property>
+          </item>
+          <item row="6" column="1">
+           <property name="text">
+            <string>S-1-5-21-187028110-86268622786-540654456-7866</string>
+           </property>
+          </item>
+          <item row="6" column="2">
+           <property name="text">
+            <string>Викаш Константин Эрнестович</string>
+           </property>
+          </item>
+          <item row="6" column="3">
+           <property name="text">
+            <string>7</string>
+           </property>
+          </item>
+          <item row="6" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="6" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="7" column="0">
+           <property name="text">
+            <string>kiselev_nn</string>
+           </property>
+          </item>
+          <item row="7" column="1">
+           <property name="text">
+            <string>S-1-5-21-3481692715-1316133944-203321314-1005</string>
+           </property>
+          </item>
+          <item row="7" column="2">
+           <property name="text">
+            <string>Киселёв Никон Назарович</string>
+           </property>
+          </item>
+          <item row="7" column="3">
+           <property name="text">
+            <string>8</string>
+           </property>
+          </item>
+          <item row="7" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="7" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="8" column="0">
+           <property name="text">
+            <string>kosinov_fn</string>
+           </property>
+          </item>
+          <item row="8" column="1">
+           <property name="text">
+            <string>S-1-5-21-9712600681-1456871003-078643556-0451</string>
+           </property>
+          </item>
+          <item row="8" column="2">
+           <property name="text">
+            <string>Косинов Феофан Наумович</string>
+           </property>
+          </item>
+          <item row="8" column="3">
+           <property name="text">
+            <string>9</string>
+           </property>
+          </item>
+          <item row="8" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="8" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="9" column="0">
+           <property name="text">
+            <string>borisova_av</string>
+           </property>
+          </item>
+          <item row="9" column="1">
+           <property name="text">
+            <string>S-1-5-21-3956387911-1316133944-203321314-1005</string>
+           </property>
+          </item>
+          <item row="9" column="2">
+           <property name="text">
+            <string>Борисова Анастасия Вячеславовна</string>
+           </property>
+          </item>
+          <item row="9" column="3">
+           <property name="text">
+            <string>10</string>
+           </property>
+          </item>
+          <item row="9" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="9" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="10" column="0">
+           <property name="text">
+            <string>kutsak_nf</string>
+           </property>
+          </item>
+          <item row="10" column="1">
+           <property name="text">
+            <string>S-1-5-21-1672486610-8965401654-864056540-7894</string>
+           </property>
+          </item>
+          <item row="10" column="2">
+           <property name="text">
+            <string>Куцак Никита Федосиевич</string>
+           </property>
+          </item>
+          <item row="10" column="3">
+           <property name="text">
+            <string>11</string>
+           </property>
+          </item>
+          <item row="10" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="10" column="5">
+           <property name="text">
+            <string>False</string>
+           </property>
+          </item>
+          <item row="11" column="0">
+           <property name="text">
+            <string>kapshukova_ia</string>
+           </property>
+          </item>
+          <item row="11" column="1">
+           <property name="text">
+            <string>S-1-5-21-291184242-86268622786-540654456-7866</string>
+           </property>
+          </item>
+          <item row="11" column="2">
+           <property name="text">
+            <string>Капшукова Инна Александровна</string>
+           </property>
+          </item>
+          <item row="11" column="3">
+           <property name="text">
+            <string>12</string>
+           </property>
+          </item>
+          <item row="11" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="11" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="12" column="0">
+           <property name="text">
+            <string>kumovyeva_ns</string>
+           </property>
+          </item>
+          <item row="12" column="1">
+           <property name="text">
+            <string>S-1-5-21-7814707521-1316133944-203321314-1005</string>
+           </property>
+          </item>
+          <item row="12" column="2">
+           <property name="text">
+            <string>Кумовьева Наталия Святославовна</string>
+           </property>
+          </item>
+          <item row="12" column="3">
+           <property name="text">
+            <string>13</string>
+           </property>
+          </item>
+          <item row="12" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="12" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="13" column="0">
+           <property name="text">
+            <string>yambusheva_yt</string>
+           </property>
+          </item>
+          <item row="13" column="1">
+           <property name="text">
+            <string>S-1-5-21-5705848422-7864168498-465168516-1656</string>
+           </property>
+          </item>
+          <item row="13" column="2">
+           <property name="text">
+            <string>Ямбушева Владислава Тимофеевна</string>
+           </property>
+          </item>
+          <item row="13" column="3">
+           <property name="text">
+            <string>14</string>
+           </property>
+          </item>
+          <item row="13" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="13" column="5">
+           <property name="text">
+            <string>False</string>
+           </property>
+          </item>
+          <item row="14" column="0">
+           <property name="text">
+            <string>yablonov_vn</string>
+           </property>
+          </item>
+          <item row="14" column="1">
+           <property name="text">
+            <string>S-1-5-21-6769146710-8965401654-864056540-7894</string>
+           </property>
+          </item>
+          <item row="14" column="2">
+           <property name="text">
+            <string>Яблонов Валентин Наумович</string>
+           </property>
+          </item>
+          <item row="14" column="3">
+           <property name="text">
+            <string>15</string>
+           </property>
+          </item>
+          <item row="14" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="14" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="15" column="0">
+           <property name="text">
+            <string>povarnitsyn_ar</string>
+           </property>
+          </item>
+          <item row="15" column="1">
+           <property name="text">
+            <string>S-1-5-21-6633441406-1456871003-078643556-0451</string>
+           </property>
+          </item>
+          <item row="15" column="2">
+           <property name="text">
+            <string>Поварницын Аркадий Родионович</string>
+           </property>
+          </item>
+          <item row="15" column="3">
+           <property name="text">
+            <string>16</string>
+           </property>
+          </item>
+          <item row="15" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="15" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="16" column="0">
+           <property name="text">
+            <string>koryavova_ud</string>
+           </property>
+          </item>
+          <item row="16" column="1">
+           <property name="text">
+            <string>S-1-5-21-9744654859-1456871003-078643556-0451</string>
+           </property>
+          </item>
+          <item row="16" column="2">
+           <property name="text">
+            <string>Корявова Ульяна Давидовна</string>
+           </property>
+          </item>
+          <item row="16" column="3">
+           <property name="text">
+            <string>17</string>
+           </property>
+          </item>
+          <item row="16" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="16" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="17" column="0">
+           <property name="text">
+            <string>yanyutin_ni</string>
+           </property>
+          </item>
+          <item row="17" column="1">
+           <property name="text">
+            <string>S-1-5-21-4496953502-7864168498-465168516-1656</string>
+           </property>
+          </item>
+          <item row="17" column="2">
+           <property name="text">
+            <string>Янютин Николай Игнатиевич</string>
+           </property>
+          </item>
+          <item row="17" column="3">
+           <property name="text">
+            <string>18</string>
+           </property>
+          </item>
+          <item row="17" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="17" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="18" column="0">
+           <property name="text">
+            <string>ryzhikov_ap</string>
+           </property>
+          </item>
+          <item row="18" column="1">
+           <property name="text">
+            <string>S-1-5-21-560451476-86146851489-017634351-1076</string>
+           </property>
+          </item>
+          <item row="18" column="2">
+           <property name="text">
+            <string>Рыжиков Артемий Платонович</string>
+           </property>
+          </item>
+          <item row="18" column="3">
+           <property name="text">
+            <string>19</string>
+           </property>
+          </item>
+          <item row="18" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="18" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="19" column="0">
+           <property name="text">
+            <string>smirnov_ai</string>
+           </property>
+          </item>
+          <item row="19" column="1">
+           <property name="text">
+            <string>S-1-5-21-4968151961-1316133944-203321314-1005</string>
+           </property>
+          </item>
+          <item row="19" column="2">
+           <property name="text">
+            <string>Смирнов Алексей Игоревич</string>
+           </property>
+          </item>
+          <item row="19" column="3">
+           <property name="text">
+            <string>20</string>
+           </property>
+          </item>
+          <item row="19" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="19" column="5">
+           <property name="text">
+            <string>False</string>
+           </property>
+          </item>
+          <item row="20" column="0">
+           <property name="text">
+            <string>korniyenko_ae</string>
+           </property>
+          </item>
+          <item row="20" column="1">
+           <property name="text">
+            <string>S-1-5-21-9900289120-8965401654-864056540-7894</string>
+           </property>
+          </item>
+          <item row="20" column="2">
+           <property name="text">
+            <string>Корниенко Артем Евграфович</string>
+           </property>
+          </item>
+          <item row="20" column="3">
+           <property name="text">
+            <string>21</string>
+           </property>
+          </item>
+          <item row="20" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="20" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="21" column="0">
+           <property name="text">
+            <string>golysheva_ik</string>
+           </property>
+          </item>
+          <item row="21" column="1">
+           <property name="text">
+            <string>S-1-5-21-2565767370-1456871003-078643556-0451</string>
+           </property>
+          </item>
+          <item row="21" column="2">
+           <property name="text">
+            <string>Голышева Ирина Карповна</string>
+           </property>
+          </item>
+          <item row="21" column="3">
+           <property name="text">
+            <string>22</string>
+           </property>
+          </item>
+          <item row="21" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="21" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="22" column="0">
+           <property name="text">
+            <string>vedenina_av</string>
+           </property>
+          </item>
+          <item row="22" column="1">
+           <property name="text">
+            <string>S-1-5-21-1922477461-1456871003-078643556-0451</string>
+           </property>
+          </item>
+          <item row="22" column="2">
+           <property name="text">
+            <string>Веденина Арина Виталиевна</string>
+           </property>
+          </item>
+          <item row="22" column="3">
+           <property name="text">
+            <string>23</string>
+           </property>
+          </item>
+          <item row="22" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="22" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="23" column="0">
+           <property name="text">
+            <string>temkina_sd</string>
+           </property>
+          </item>
+          <item row="23" column="1">
+           <property name="text">
+            <string>S-1-5-21-9649352251-1316133944-203321314-1005</string>
+           </property>
+          </item>
+          <item row="23" column="2">
+           <property name="text">
+            <string>Тёмкина Светлана Данилевна</string>
+           </property>
+          </item>
+          <item row="23" column="3">
+           <property name="text">
+            <string>24</string>
+           </property>
+          </item>
+          <item row="23" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="23" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
+          <item row="24" column="0">
+           <property name="text">
+            <string>nilova_av</string>
+           </property>
+          </item>
+          <item row="24" column="1">
+           <property name="text">
+            <string>S-1-5-21-550841097</string>
+           </property>
+          </item>
+          <item row="24" column="2">
+           <property name="text">
+            <string>Нилова Алла Всеволодовна</string>
+           </property>
+          </item>
+          <item row="24" column="3">
+           <property name="text">
+            <string>25</string>
+           </property>
+          </item>
+          <item row="24" column="4">
+           <property name="text">
+            <string>02.10.2020</string>
+           </property>
+          </item>
+          <item row="24" column="5">
+           <property name="text">
+            <string>True</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="2" column="4">
